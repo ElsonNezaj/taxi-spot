@@ -20,9 +20,10 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"],
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyCgQ6bArSYU6twJ6WvLz10uR1jq4XXZ1oM"
+          "apiKey": "AIzaSyDeH1CPnvMotWBiC2NbQWiMWIp17U3WZkM"
         }
       }
     },
