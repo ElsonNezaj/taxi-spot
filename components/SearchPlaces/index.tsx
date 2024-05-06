@@ -1,17 +1,34 @@
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import Constants from "expo-constants";
-import { SetStateAction } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 
 interface Iprops {
-  setValue: React.Dispatch<SetStateAction<string>>
+  setIsBackDropVisble: React.Dispatch<SetStateAction<boolean>>,
+  isBackdropVisible: boolean,
 }
 
-export default function SearchPlaces({ setValue }: Iprops) {
+export default function SearchPlaces({ setIsBackDropVisble }: Iprops) {
+  const [placeValue, setPlaceValue] = useState<string>("")
+
+  if (placeValue.length >= 3) {
+    setIsBackDropVisble(true)
+  } else {
+    setIsBackDropVisble(false)
+
+  }
+
   return (
     <GooglePlacesAutocomplete
       placeholder='Zgjidhni destinacionin tuaj'
       query={{ key: "AIzaSyDeH1CPnvMotWBiC2NbQWiMWIp17U3WZkM", language: "en", components: "country:AL" }}
-      textInputProps={{ onChangeText: (text) => setValue(text) }}
+      listViewDisplayed={placeValue.length <= 3 ? false : true}
+      enableHighAccuracyLocation
+      keyboardShouldPersistTaps="never"
+      minLength={3}
+      textInputProps={{
+        onChangeText: (text) => setPlaceValue(text),
+        value: placeValue
+      }}
       styles={{
         container: {
           position: "absolute",
