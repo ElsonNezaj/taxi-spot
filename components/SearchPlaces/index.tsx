@@ -1,15 +1,21 @@
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import Constants from "expo-constants";
+import { SetStateAction } from "react";
 
-export default function SearchPlaces() {
+interface Iprops {
+  setValue: React.Dispatch<SetStateAction<string>>
+}
+
+export default function SearchPlaces({ setValue }: Iprops) {
   return (
     <GooglePlacesAutocomplete
-      placeholder='Search'
+      placeholder='Zgjidhni destinacionin tuaj'
       query={{ key: "AIzaSyDeH1CPnvMotWBiC2NbQWiMWIp17U3WZkM", language: "en", components: "country:AL" }}
+      textInputProps={{ onChangeText: (text) => setValue(text) }}
       styles={{
         container: {
           position: "absolute",
-          zIndex: 1,
+          zIndex: 2,
           width: "100%",
           top: Constants.statusBarHeight + 10,
           alignSelf: "center"
@@ -17,10 +23,11 @@ export default function SearchPlaces() {
         listView: {
           width: "99%",
           margin: 5,
-          marginTop: 0,
+          marginTop: 5,
           alignSelf: "center",
           maxHeight: 200,
-          overflow: "scroll"
+          overflow: "scroll",
+          zIndex: 0,
         },
         row: {
           backgroundColor: "#8478A3",

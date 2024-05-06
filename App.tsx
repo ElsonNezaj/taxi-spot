@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, StyleSheet, Text, Dimensions } from 'react-native';
+import { View, StyleSheet, Text, Dimensions, ScrollView } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 import * as Location from 'expo-location';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import Constants from 'expo-constants';
 import SearchPlaces from './components/SearchPlaces';
 
 interface PositionType {
@@ -14,6 +13,7 @@ interface PositionType {
 
 export default function App() {
   const [current, setCurrent] = useState<any>(undefined)
+  const [value, setValue] = useState<string>("")
   const { width, height } = Dimensions.get("window");
   const aspectRatio = width / height;
   const latDelta = 0.002;
@@ -38,11 +38,17 @@ export default function App() {
     setInterval(() => getLocationAsync(), 10000)
   }, [])
 
+
   return (
-    <View style={styles.container}>
-      <MapView style={styles.map} provider={PROVIDER_GOOGLE} initialRegion={current && current} />
-      <SearchPlaces />
-    </View>
+    <>
+      <View style={styles.container}>
+        <MapView style={styles.map} provider={PROVIDER_GOOGLE} initialRegion={current && current} />
+        <SearchPlaces setValue={setValue} />
+        {value.length > 0 &&
+          <View style={styles.backdrop} />
+        }
+      </View>
+    </>
   );
 }
 
@@ -54,5 +60,15 @@ const styles = StyleSheet.create({
   map: {
     flex: 1,
   },
+  backdrop: {
+    position: "absolute",
+    flex: 1,
+    zIndex: 1,
+    backgroundColor: "black",
+    left: 0,
+    opacity: 0.3,
+    height: 1000,
+    width: 1000
+  }
 
 });
