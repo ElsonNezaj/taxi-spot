@@ -1,21 +1,10 @@
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import Constants from "expo-constants";
 import { SetStateAction, useEffect, useState } from "react";
+import React from "react";
 
-interface Iprops {
-  setIsBackDropVisble: React.Dispatch<SetStateAction<boolean>>,
-  isBackdropVisible: boolean,
-}
-
-export default function SearchPlaces({ setIsBackDropVisble }: Iprops) {
+export default function SearchPlaces() {
   const [placeValue, setPlaceValue] = useState<string>("")
-
-  if (placeValue.length >= 3) {
-    setIsBackDropVisble(true)
-  } else {
-    setIsBackDropVisble(false)
-
-  }
 
   return (
     <GooglePlacesAutocomplete
@@ -25,6 +14,9 @@ export default function SearchPlaces({ setIsBackDropVisble }: Iprops) {
       enableHighAccuracyLocation
       keyboardShouldPersistTaps="never"
       minLength={3}
+      onPress={(data, details = null) => {
+        console.log(data, details)
+      }}
       textInputProps={{
         onChangeText: (text) => setPlaceValue(text),
         value: placeValue

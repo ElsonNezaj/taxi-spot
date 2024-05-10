@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { View, StyleSheet, Text, Dimensions, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 import * as Location from 'expo-location';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import SearchPlaces from './components/SearchPlaces';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 
 interface PositionType {
   latitude: number;
@@ -14,8 +15,8 @@ interface PositionType {
 export default function App() {
   const [current, setCurrent] = useState<any>(undefined)
   const [isBackdropVisible, setIsBackDropVisble] = useState<boolean>(false)
-  const [hardDelete, setHardDelete] = useState<boolean>(true)
   const { width, height } = Dimensions.get("window");
+
   const aspectRatio = width / height;
   const latDelta = 0.002;
   const longDelta = latDelta * aspectRatio;
@@ -25,7 +26,6 @@ export default function App() {
     let currentLocation = await Location.getCurrentPositionAsync({})
     const latitude = currentLocation.coords.latitude
     const longitude = currentLocation.coords.longitude
-
     setCurrent({
       latitude,
       longitude,
@@ -41,25 +41,25 @@ export default function App() {
   }, [])
 
   return (
-    <View style={styles.container}>
-      {current &&
-        <>
-          <MapView style={styles.map} provider={PROVIDER_GOOGLE} initialRegion={current} />
-          {isBackdropVisible &&
-            <View style={styles.backdrop}>
-              <TouchableOpacity
-                onPress={() => setIsBackDropVisble(false)}
-                style={styles.touchView}
-              />
-            </View>
-          }
-          <SearchPlaces
-            setIsBackDropVisble={setIsBackDropVisble}
-            isBackdropVisible={isBackdropVisible}
-          />
-        </>
-      }
-    </View>
+    <Provider store={store}>
+      <View style={styles.container}>
+        {current &&
+          <>
+            <MapView style={styles.map} provider={PROVIDER_GOOGLE} initialRegion={current} />
+            {isBackdropVisible &&
+              <View style={styles.backdrop}>
+                <TouchableOpacity
+                  onPress={() => setIsBackDropVisble(false)}
+                  style={styles.touchView}
+                />
+              </View>
+            }
+            <SearchPlaces />
+          </>
+        }
+      </View>
+    </Provider>
+
   );
 }
 
