@@ -2,8 +2,12 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import Constants from "expo-constants";
 import { SetStateAction, useEffect, useState } from "react";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "../../redux/hooks";
 
 export default function SearchPlaces() {
+  const dispatch = useDispatch()
+  const currentStatePlaces = useAppSelector(state => state.places.currentStatePlaces)
   const [placeValue, setPlaceValue] = useState<string>("")
 
   return (

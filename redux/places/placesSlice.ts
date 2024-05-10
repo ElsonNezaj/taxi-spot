@@ -2,8 +2,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface PlacesState {
   currentStatePlaces: string;
-  destination: string;
-  currentPosition: string;
+  destination: any;
+  currentPosition: any;
 }
 
 const initialState: PlacesState = {
@@ -18,6 +18,12 @@ export const placesSlice = createSlice({
   reducers: {
     handleCurrentState: (state: PlacesState, action: PayloadAction<string>) => {
       state.currentStatePlaces = action.payload;
+    },
+    setDestination: (state: PlacesState, action: PayloadAction<any>) => {
+      state.destination = action.payload;
+    },
+    setCurrentPosition: (state: PlacesState, action: PayloadAction<any>) => {
+      state.currentPosition = action.payload;
     },
   },
 });

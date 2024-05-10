@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import { View, StyleSheet, Dimensions, TouchableOpacity, Text } from 'react-native';
+import MapView, { Marker, MarkerAnimated, PROVIDER_GOOGLE } from 'react-native-maps';
 
 import * as Location from 'expo-location';
 import SearchPlaces from './components/SearchPlaces';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
-
-interface PositionType {
-  latitude: number;
-  longitude: number;
-}
+import CustomLoader from './components/CustomLoader';
 
 export default function App() {
   const [current, setCurrent] = useState<any>(undefined)
@@ -18,7 +14,7 @@ export default function App() {
   const { width, height } = Dimensions.get("window");
 
   const aspectRatio = width / height;
-  const latDelta = 0.002;
+  const latDelta = 0.02;
   const longDelta = latDelta * aspectRatio;
 
   const getLocationAsync = async () => {
@@ -34,18 +30,29 @@ export default function App() {
     })
   }
 
-
   useEffect(() => {
     getLocationAsync()
     setInterval(() => getLocationAsync(), 10000)
   }, [])
 
+
   return (
-    <Provider store={store}>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <Provider store={store}>
         {current &&
           <>
-            <MapView style={styles.map} provider={PROVIDER_GOOGLE} initialRegion={current} />
+            <MapView
+              followsUserLocation
+              rotateEnabled={false}
+              provider={PROVIDER_GOOGLE}
+              initialRegion={current}
+              style={styles.map}
+            >
+              <MarkerAnimated
+                coordinate={current}
+                style={{ backgroundColor: "#000" }}
+              />
+            </MapView>
             {isBackdropVisible &&
               <View style={styles.backdrop}>
                 <TouchableOpacity
@@ -57,8 +64,8 @@ export default function App() {
             <SearchPlaces />
           </>
         }
-      </View>
-    </Provider>
+      </Provider>
+    </View>
 
   );
 }
