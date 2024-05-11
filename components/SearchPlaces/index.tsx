@@ -5,6 +5,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../redux/hooks";
 import { setDestination } from "../../redux/places/placesSlice";
+import { fetchDestination } from "../../redux/API/fetchDestination";
 
 export default function SearchPlaces() {
   const dispatch = useDispatch()
@@ -19,14 +20,8 @@ export default function SearchPlaces() {
       enableHighAccuracyLocation
       keyboardShouldPersistTaps="always"
       minLength={3}
-      onPress={(data, details) => {
-        if (details) {
-          console.log(details)
-        }
-        const referance = data.reference
-        const place_id = data.place_id
-        const structure = data.structured_formatting
-        dispatch(setDestination({ referance, place_id, structure }))
+      onPress={(data, details = null) => {
+        fetchDestination(data.place_id)
       }}
       textInputProps={{
         onChangeText: (text) => setPlaceValue(text),

@@ -35,6 +35,8 @@ export default function Content(): ReactElement {
     getLocationAsync()
   }, [])
 
+  console.log(destination)
+
   return (
     <>
       {current &&
@@ -50,6 +52,11 @@ export default function Content(): ReactElement {
               coordinate={current}
               style={{ backgroundColor: "#000" }}
             />
+
+            {destination &&
+              <MarkerAnimated coordinate={destination} />
+            }
+
           </MapView>
           {isBackdropVisible &&
             <View style={styles.backdrop}>
