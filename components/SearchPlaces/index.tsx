@@ -4,6 +4,7 @@ import { SetStateAction, useEffect, useState } from "react";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../redux/hooks";
+import { setDestination } from "../../redux/places/placesSlice";
 
 export default function SearchPlaces() {
   const dispatch = useDispatch()
@@ -16,10 +17,16 @@ export default function SearchPlaces() {
       query={{ key: "AIzaSyDeH1CPnvMotWBiC2NbQWiMWIp17U3WZkM", language: "en", components: "country:AL" }}
       listViewDisplayed={placeValue.length <= 3 ? false : true}
       enableHighAccuracyLocation
-      keyboardShouldPersistTaps="never"
+      keyboardShouldPersistTaps="always"
       minLength={3}
-      onPress={(data, details = null) => {
-        console.log(data, details)
+      onPress={(data, details) => {
+        if (details) {
+          console.log(details)
+        }
+        const referance = data.reference
+        const place_id = data.place_id
+        const structure = data.structured_formatting
+        dispatch(setDestination({ referance, place_id, structure }))
       }}
       textInputProps={{
         onChangeText: (text) => setPlaceValue(text),

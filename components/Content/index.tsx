@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useState } from "react";
-import { Dimensions, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import MapView, { MarkerAnimated, PROVIDER_GOOGLE } from 'react-native-maps';
 import SearchPlaces from "../SearchPlaces";
 
@@ -10,6 +10,7 @@ import { setCurrentPosition } from "../../redux/places/placesSlice";
 export default function Content(): ReactElement {
   const dispatch = useAppDispatch();
   const current = useAppSelector(state => state.places.currentPosition)
+  const destination = useAppSelector(state => state.places.destination)
   const [isBackdropVisible, setIsBackDropVisble] = useState<boolean>(false)
   const { width, height } = Dimensions.get("window");
 
@@ -68,6 +69,7 @@ export default function Content(): ReactElement {
 const styles = StyleSheet.create({
   map: {
     flex: 1,
+    height: "99%"
   },
   backdrop: {
     position: "absolute",
