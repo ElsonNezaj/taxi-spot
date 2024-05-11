@@ -28,5 +28,6 @@ export const placesSlice = createSlice({
   },
 });
 
-export const { handleCurrentState } = placesSlice.actions;
+export const { handleCurrentState, setDestination, setCurrentPosition } =
+  placesSlice.actions;
 export default placesSlice.reducer;
