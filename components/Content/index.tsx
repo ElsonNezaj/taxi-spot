@@ -6,7 +6,6 @@ import SearchPlaces from "../SearchPlaces";
 import * as Location from 'expo-location';
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { setCurrentPosition } from "../../redux/places/placesSlice";
-import CustomLoader from "../Shared/CustomLoader";
 
 export default function Content(): ReactElement {
   const dispatch = useAppDispatch();
