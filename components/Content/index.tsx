@@ -6,6 +6,7 @@ import SearchPlaces from "../SearchPlaces";
 import * as Location from 'expo-location';
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { setCurrentPosition } from "../../redux/places/placesSlice";
+import AppHeader from "../AppHeader";
 
 export default function Content(): ReactElement {
   const dispatch = useAppDispatch();
@@ -34,8 +35,6 @@ export default function Content(): ReactElement {
   useEffect(() => {
     getLocationAsync()
   }, [])
-
-  console.log(destination)
 
   return (
     <>
@@ -66,7 +65,7 @@ export default function Content(): ReactElement {
               />
             </View>
           }
-          <SearchPlaces />
+          <AppHeader />
         </>
       }
     </>

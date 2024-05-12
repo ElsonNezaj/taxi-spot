@@ -1,27 +1,40 @@
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import Constants from "expo-constants";
-import { SetStateAction, useEffect, useState } from "react";
+import { useState } from "react";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../redux/hooks";
-import { setDestination } from "../../redux/places/placesSlice";
+import { handleConfirmLocation, handleCurrentState, setDestination } from "../../redux/places/placesSlice";
 import { fetchDestination } from "../../redux/API/fetchDestination";
+import { API_KEY } from "../../assets/key/Google_API/api";
 
 export default function SearchPlaces() {
   const dispatch = useDispatch()
   const currentStatePlaces = useAppSelector(state => state.places.currentStatePlaces)
   const [placeValue, setPlaceValue] = useState<string>("")
 
+  const handleDestination = (placeID: string) => {
+    fetchDestination(placeID)
+  }
+
   return (
     <GooglePlacesAutocomplete
-      placeholder='Zgjidhni destinacionin tuaj'
-      query={{ key: "AIzaSyDeH1CPnvMotWBiC2NbQWiMWIp17U3WZkM", language: "en", components: "country:AL" }}
+      placeholder={currentStatePlaces === "destination" ? 'Zgjidhni destinacionin tuaj' : "Zgjidhni vendndodhjen tuaj"}
+      query={{ key: API_KEY, language: "en", components: "country:AL" }}
       listViewDisplayed={placeValue.length <= 3 ? false : true}
       enableHighAccuracyLocation
       keyboardShouldPersistTaps="always"
       minLength={3}
       onPress={(data, details = null) => {
-        fetchDestination(data.place_id)
+        if (currentStatePlaces === "destination") {
+          console.log("hello destination")
+          handleDestination(data.place_id)
+          dispatch(handleCurrentState("user"))
+        } else {
+          console.log("hello user")
+          dispatch(handleCurrentState("destination"))
+          dispatch(handleConfirmLocation(true))
+        }
       }}
       textInputProps={{
         onChangeText: (text) => setPlaceValue(text),
