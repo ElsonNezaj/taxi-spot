@@ -3,10 +3,10 @@ import Constants from "expo-constants";
 import { useState } from "react";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useAppSelector } from "../../redux/hooks";
-import { handleConfirmLocation, handleCurrentState, setDestination } from "../../redux/places/placesSlice";
-import { fetchDestination } from "../../redux/API/fetchDestination";
-import { API_KEY } from "../../assets/key/Google_API/api";
+import { useAppSelector } from "../../../redux/hooks";
+import { handleConfirmLocation, handleCurrentState, setDestination } from "../../../redux/places/placesSlice";
+import { fetchDestination } from "../../../redux/API/fetchDestination";
+import { API_KEY } from "../../../assets/key/Google_API/api";
 
 export interface LatLng {
   latitude: number,

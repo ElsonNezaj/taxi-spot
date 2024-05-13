@@ -4,11 +4,8 @@ import MapView, { LatLng, MarkerAnimated, PROVIDER_GOOGLE } from 'react-native-m
 
 import * as Location from 'expo-location';
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { setCurrentPosition, setUserLocation } from "../../redux/places/placesSlice";
+import { handleConfirmLocation, handleCurrentState, setCurrentPosition, setUserLocation } from "../../redux/places/placesSlice";
 import AppHeader from "../AppHeader";
-
-import DestinationIcon from "../../assets/images/destination.png"
-import UserLocation from "../../assets/images/userLocation.png"
 
 export default function Content(): ReactElement {
   const dispatch = useAppDispatch();
@@ -47,12 +44,16 @@ export default function Content(): ReactElement {
     if (camera) {
       camera.center = position;
       mapRef.current?.animateCamera(camera, { duration: 500 })
+      dispatch(handleCurrentState("user"))
     }
   }
 
   useEffect(() => {
     if (currentStatePlaces === "destination" && destination) {
       moveTo(destination)
+      setTimeout(() => {
+        dispatch(handleConfirmLocation(true))
+      }, 2000)
     }
   }, [currentStatePlaces, destination])
 
@@ -80,7 +81,10 @@ export default function Content(): ReactElement {
               />
             }
             {destination &&
-              <MarkerAnimated coordinate={destination} image={require("../../assets/images/destination.png")} />
+              <MarkerAnimated
+                image={require("../../assets/images/destination.png")}
+                coordinate={destination}
+              />
             }
 
           </MapView>

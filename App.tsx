@@ -6,6 +6,7 @@ import { store } from './redux/store';
 
 import Content from './components/Content';
 import { StatusBar } from 'expo-status-bar';
+import ConfirmDialog from './components/Shared/ConfirmDialog';
 
 export default function App() {
 
@@ -19,6 +20,7 @@ export default function App() {
           backgroundColor='#8478A3'
           style='light'
         />
+        <ConfirmDialog />
       </Provider>
     </View>
 
