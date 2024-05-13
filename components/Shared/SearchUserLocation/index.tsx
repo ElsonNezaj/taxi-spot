@@ -1,11 +1,9 @@
+import React, { ReactElement } from "react";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import Constants from "expo-constants";
 import { useState } from "react";
-import React from "react";
-import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../../redux/hooks";
-import { handleConfirmLocation, handleCurrentState, setDestination } from "../../../redux/places/placesSlice";
-import { fetchDestination } from "../../../redux/API/fetchDestination";
+import { fetchDestination, fetchUserLocation } from "../../../redux/API/fetchDestination";
 import { API_KEY } from "../../../assets/key/Google_API/api";
 
 export interface LatLng {
@@ -13,14 +11,12 @@ export interface LatLng {
   longitude: number
 }
 
-export default function SearchPlaces() {
-  const dispatch = useDispatch()
+export default function SearchUserLocation(): ReactElement {
   const currentStatePlaces = useAppSelector(state => state.places.currentStatePlaces)
   const [placeValue, setPlaceValue] = useState<string>("")
 
-
-  const handleDestination = (placeID: string) => {
-    fetchDestination(placeID)
+  const handleUserLocation = (placeID: string) => {
+    fetchUserLocation(placeID)
   }
 
   return (
@@ -31,8 +27,8 @@ export default function SearchPlaces() {
       enableHighAccuracyLocation
       keyboardShouldPersistTaps="always"
       minLength={3}
-      onPress={(data, details = null) => {
-        handleDestination(data.place_id)
+      onPress={(data) => {
+        handleUserLocation(data.place_id)
       }}
       textInputProps={{
         onChangeText: (text) => setPlaceValue(text),

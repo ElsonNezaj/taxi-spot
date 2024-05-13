@@ -2,16 +2,28 @@ import React, { ReactElement } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 import Dialog from "react-native-dialog";
-import { useAppSelector } from "../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { handleConfirmLocation, handleCurrentState } from "../../../redux/places/placesSlice";
 
 export default function ConfirmDialog(): ReactElement {
+  const dispatch = useAppDispatch()
   const isConfirmLocationVisible = useAppSelector(state => state.places.isConfirmLocationVisible)
+
+  const handleClose = () => {
+    dispatch(handleConfirmLocation(false))
+  }
+
+  const handleReject = () => {
+    dispatch(handleCurrentState("user"))
+    handleClose()
+  }
+
   return (
     <Dialog.Container visible={isConfirmLocationVisible}>
       <Dialog.Title><Text style={styles.title}>Konfirmoni Vendndodhjen Tuaj</Text></Dialog.Title>
       <Dialog.Description style={styles.description}>Deshironi te perdorni pozicionin tuaj aktual?</Dialog.Description>
       <View style={styles.buttonView}>
-        <Dialog.Button label="JO" onPress={() => { }} style={styles.rejectButton} />
+        <Dialog.Button label="JO" onPress={handleReject} style={styles.rejectButton} />
         <Dialog.Button label="Po" onPress={() => { }} style={styles.confirmButton} />
       </View>
     </Dialog.Container>
