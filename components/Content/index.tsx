@@ -4,7 +4,7 @@ import MapView, { LatLng, MarkerAnimated, PROVIDER_GOOGLE } from 'react-native-m
 
 import * as Location from 'expo-location';
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { handleConfirmLocation, handleCurrentState, setCurrentPosition, setUserLocation } from "../../redux/places/placesSlice";
+import { handleConfirmLocation, setCurrentPosition, setUserLocation } from "../../redux/places/placesSlice";
 import AppHeader from "../AppHeader";
 
 export default function Content(): ReactElement {
@@ -44,7 +44,6 @@ export default function Content(): ReactElement {
     if (camera) {
       camera.center = position;
       mapRef.current?.animateCamera(camera, { duration: 500 })
-      dispatch(handleCurrentState("user"))
     }
   }
 
@@ -54,8 +53,10 @@ export default function Content(): ReactElement {
       setTimeout(() => {
         dispatch(handleConfirmLocation(true))
       }, 2000)
+    } else if (currentStatePlaces === "user" && userLocation) {
+      moveTo(userLocation)
     }
-  }, [currentStatePlaces, destination])
+  }, [currentStatePlaces, destination, userLocation])
 
   useEffect(() => {
     getLocationAsync()

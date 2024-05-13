@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 
 import Dialog from "react-native-dialog";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import { handleConfirmLocation, handleCurrentState } from "../../../redux/places/placesSlice";
+import { handleConfirmLocation, handleCurrentState, setUserLocation } from "../../../redux/places/placesSlice";
 
 export default function ConfirmDialog(): ReactElement {
   const dispatch = useAppDispatch()
@@ -14,6 +14,7 @@ export default function ConfirmDialog(): ReactElement {
   }
 
   const handleReject = () => {
+    dispatch(setUserLocation(undefined))
     dispatch(handleCurrentState("user"))
     handleClose()
   }
@@ -23,7 +24,7 @@ export default function ConfirmDialog(): ReactElement {
       <Dialog.Title><Text style={styles.title}>Konfirmoni Vendndodhjen Tuaj</Text></Dialog.Title>
       <Dialog.Description style={styles.description}>Deshironi te perdorni pozicionin tuaj aktual?</Dialog.Description>
       <View style={styles.buttonView}>
-        <Dialog.Button label="JO" onPress={handleReject} style={styles.rejectButton} />
+        <Dialog.Button label="JO" onPress={() => handleReject()} style={styles.rejectButton} />
         <Dialog.Button label="Po" onPress={() => { }} style={styles.confirmButton} />
       </View>
     </Dialog.Container>
