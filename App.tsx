@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Modal, Text, Alert } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 import { Provider } from 'react-redux';
 import { store } from './redux/store';

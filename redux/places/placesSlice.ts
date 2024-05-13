@@ -3,15 +3,22 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface PlacesState {
   isConfirmLocationVisible: boolean;
   currentStatePlaces: string;
-  destination: any;
-  currentPosition: any;
+  destination?: LatLng;
+  userPosition?: LatLng;
+  currentPosition?: any;
+}
+
+export interface LatLng {
+  latitude: number;
+  longitude: number;
 }
 
 const initialState: PlacesState = {
   isConfirmLocationVisible: false,
   currentStatePlaces: "destination",
-  destination: "",
-  currentPosition: "",
+  destination: undefined,
+  currentPosition: undefined,
+  userPosition: undefined,
 };
 
 export const placesSlice = createSlice({
@@ -33,6 +40,9 @@ export const placesSlice = createSlice({
     setCurrentPosition: (state: PlacesState, action: PayloadAction<any>) => {
       state.currentPosition = action.payload;
     },
+    setUserLocation: (state: PlacesState, action: PayloadAction<any>) => {
+      state.userPosition = action.payload;
+    },
   },
 });
 
@@ -41,5 +51,6 @@ export const {
   setDestination,
   setCurrentPosition,
   handleConfirmLocation,
+  setUserLocation,
 } = placesSlice.actions;
 export default placesSlice.reducer;

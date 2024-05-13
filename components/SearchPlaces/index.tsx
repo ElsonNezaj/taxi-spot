@@ -8,10 +8,16 @@ import { handleConfirmLocation, handleCurrentState, setDestination } from "../..
 import { fetchDestination } from "../../redux/API/fetchDestination";
 import { API_KEY } from "../../assets/key/Google_API/api";
 
+export interface LatLng {
+  latitude: number,
+  longitude: number
+}
+
 export default function SearchPlaces() {
   const dispatch = useDispatch()
   const currentStatePlaces = useAppSelector(state => state.places.currentStatePlaces)
   const [placeValue, setPlaceValue] = useState<string>("")
+
 
   const handleDestination = (placeID: string) => {
     fetchDestination(placeID)
@@ -26,15 +32,7 @@ export default function SearchPlaces() {
       keyboardShouldPersistTaps="always"
       minLength={3}
       onPress={(data, details = null) => {
-        if (currentStatePlaces === "destination") {
-          console.log("hello destination")
-          handleDestination(data.place_id)
-          dispatch(handleCurrentState("user"))
-        } else {
-          console.log("hello user")
-          dispatch(handleCurrentState("destination"))
-          dispatch(handleConfirmLocation(true))
-        }
+        handleDestination(data.place_id)
       }}
       textInputProps={{
         onChangeText: (text) => setPlaceValue(text),

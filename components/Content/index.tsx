@@ -1,23 +1,29 @@
-import React, { ReactElement, useEffect, useState } from "react";
-import { Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import MapView, { MarkerAnimated, PROVIDER_GOOGLE } from 'react-native-maps';
-import SearchPlaces from "../SearchPlaces";
+import React, { ReactElement, useEffect, useRef, useState } from "react";
+import { Dimensions, StyleSheet, TouchableOpacity, View } from "react-native";
+import MapView, { LatLng, MarkerAnimated, PROVIDER_GOOGLE } from 'react-native-maps';
 
 import * as Location from 'expo-location';
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { setCurrentPosition } from "../../redux/places/placesSlice";
+import { setCurrentPosition, setUserLocation } from "../../redux/places/placesSlice";
 import AppHeader from "../AppHeader";
+
+import DestinationIcon from "../../assets/images/destination.png"
+import UserLocation from "../../assets/images/userLocation.png"
 
 export default function Content(): ReactElement {
   const dispatch = useAppDispatch();
   const current = useAppSelector(state => state.places.currentPosition)
+  const userLocation = useAppSelector(state => state.places.userPosition)
   const destination = useAppSelector(state => state.places.destination)
+  const currentStatePlaces = useAppSelector(state => state.places.currentStatePlaces)
   const [isBackdropVisible, setIsBackDropVisble] = useState<boolean>(false)
   const { width, height } = Dimensions.get("window");
 
   const aspectRatio = width / height;
   const latDelta = 0.02;
   const longDelta = latDelta * aspectRatio;
+
+  const mapRef = useRef<MapView>(null)
 
   const getLocationAsync = async () => {
     await Location.requestForegroundPermissionsAsync()
@@ -30,7 +36,25 @@ export default function Content(): ReactElement {
       latitudeDelta: latDelta,
       longitudeDelta: longDelta
     }))
+    dispatch(setUserLocation({
+      latitude,
+      longitude,
+    }))
   }
+
+  const moveTo = async (position: LatLng) => {
+    const camera = await mapRef.current?.getCamera()
+    if (camera) {
+      camera.center = position;
+      mapRef.current?.animateCamera(camera, { duration: 500 })
+    }
+  }
+
+  useEffect(() => {
+    if (currentStatePlaces === "destination" && destination) {
+      moveTo(destination)
+    }
+  }, [currentStatePlaces, destination])
 
   useEffect(() => {
     getLocationAsync()
@@ -41,19 +65,22 @@ export default function Content(): ReactElement {
       {current &&
         <>
           <MapView
+            ref={mapRef}
             followsUserLocation
             rotateEnabled={false}
             provider={PROVIDER_GOOGLE}
             initialRegion={current}
             style={styles.map}
           >
-            <MarkerAnimated
-              coordinate={current}
-              style={{ backgroundColor: "#000" }}
-            />
-
+            {
+              userLocation &&
+              <MarkerAnimated
+                image={require("../../assets/images/userLocation.png")}
+                coordinate={userLocation}
+              />
+            }
             {destination &&
-              <MarkerAnimated coordinate={destination} />
+              <MarkerAnimated coordinate={destination} image={require("../../assets/images/destination.png")} />
             }
 
           </MapView>
