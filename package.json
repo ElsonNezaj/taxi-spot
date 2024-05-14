@@ -19,6 +19,7 @@
     "react-native-dialog": "^9.3.0",
     "react-native-google-places-autocomplete": "^2.5.6",
     "react-native-maps": "^1.14.0",
+    "react-native-raw-bottom-sheet": "^3.0.0",
     "react-redux": "^9.1.2"
   },
   "devDependencies": {
