@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Place } from "react-native-google-places-autocomplete";
 
 interface PlacesState {
   isConfirmLocationVisible: boolean;
@@ -7,6 +8,8 @@ interface PlacesState {
   destination?: LatLng;
   userPosition?: LatLng;
   currentPosition?: any;
+  destinationData: any;
+  userData: any;
 }
 
 export interface LatLng {
@@ -21,6 +24,8 @@ const initialState: PlacesState = {
   destination: undefined,
   currentPosition: undefined,
   userPosition: undefined,
+  destinationData: undefined,
+  userData: undefined,
 };
 
 export const placesSlice = createSlice({
@@ -48,6 +53,12 @@ export const placesSlice = createSlice({
     setUserLocation: (state: PlacesState, action: PayloadAction<any>) => {
       state.userPosition = action.payload;
     },
+    saveDestinationData: (state: PlacesState, action: PayloadAction<any>) => {
+      state.destinationData = action.payload;
+    },
+    saveUserData: (state: PlacesState, action: PayloadAction<any>) => {
+      state.userData = action.payload;
+    },
   },
 });
 
@@ -58,5 +69,7 @@ export const {
   setCurrentPosition,
   handleConfirmLocation,
   setUserLocation,
+  saveDestinationData,
+  saveUserData,
 } = placesSlice.actions;
 export default placesSlice.reducer;
