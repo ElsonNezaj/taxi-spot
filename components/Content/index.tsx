@@ -13,6 +13,7 @@ export default function Content(): ReactElement {
   const userLocation = useAppSelector(state => state.places.userPosition)
   const destination = useAppSelector(state => state.places.destination)
   const currentStatePlaces = useAppSelector(state => state.places.currentStatePlaces)
+  const currentView = useAppSelector(state => state.app.currentView)
   const [isBackdropVisible, setIsBackDropVisble] = useState<boolean>(false)
   const { width, height } = Dimensions.get("window");
 
@@ -48,13 +49,15 @@ export default function Content(): ReactElement {
   }
 
   useEffect(() => {
-    if (currentStatePlaces === "destination" && destination) {
-      moveTo(destination)
-      setTimeout(() => {
-        dispatch(handleConfirmLocation(true))
-      }, 2000)
-    } else if (currentStatePlaces === "user" && userLocation) {
-      moveTo(userLocation)
+    if (currentView === "default") {
+      if (currentStatePlaces === "destination" && destination) {
+        moveTo(destination)
+        setTimeout(() => {
+          dispatch(handleConfirmLocation(true))
+        }, 2000)
+      } else if (currentStatePlaces === "user" && userLocation) {
+        moveTo(userLocation)
+      }
     }
   }, [currentStatePlaces, destination, userLocation])
 

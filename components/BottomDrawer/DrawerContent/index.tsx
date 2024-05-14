@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useAppDispatch } from "../../../redux/hooks";
 import { handleConfirmTrip, handleCurrentState, setUserLocation } from "../../../redux/places/placesSlice";
+import { handleCurrentView } from "../../../redux/app/appSlice";
 
 export default function DrawerContent(): ReactElement {
   const dispatch = useAppDispatch()
@@ -14,6 +15,7 @@ export default function DrawerContent(): ReactElement {
 
   const handleConfirm = () => {
     dispatch(handleCurrentState("destination"))
+    dispatch(handleCurrentView("routing"))
     dispatch(handleConfirmTrip(false))
   }
 
@@ -25,9 +27,9 @@ export default function DrawerContent(): ReactElement {
         <TouchableOpacity onPress={() => handleReject()} style={styles.reject}>
           <Text style={styles.buttonLabel}>Jo</Text>
         </TouchableOpacity>
-        <View style={styles.confirm}>
+        <TouchableOpacity onPress={() => handleConfirm()} style={styles.confirm}>
           <Text style={styles.buttonLabel}>Po</Text>
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   )
