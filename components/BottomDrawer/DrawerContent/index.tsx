@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useAppDispatch } from "../../../redux/hooks";
 import { handleConfirmTrip, handleCurrentState, setUserLocation } from "../../../redux/places/placesSlice";
 
