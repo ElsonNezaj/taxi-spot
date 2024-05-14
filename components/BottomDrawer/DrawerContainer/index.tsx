@@ -2,6 +2,7 @@ import React, { ReactElement, useEffect, useRef } from "react";
 import RBSheet from "react-native-raw-bottom-sheet";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { handleConfirmTrip } from "../../../redux/places/placesSlice";
+import DrawerContent from "../DrawerContent";
 
 export default function BottomDrawer(): ReactElement {
   const dispatch = useAppDispatch()
@@ -15,7 +16,6 @@ export default function BottomDrawer(): ReactElement {
 
   const close = () => {
     drawerRef.current.close()
-
   }
 
   useEffect(() => {
@@ -25,8 +25,6 @@ export default function BottomDrawer(): ReactElement {
       close()
     }
   }, [isConfirmTripVisible])
-
-  console.log(isConfirmTripVisible)
 
   return (
     <RBSheet
@@ -45,7 +43,9 @@ export default function BottomDrawer(): ReactElement {
         draggableIcon: {
           display: "none"
         }
-      }}>
+      }}
+    >
+      <DrawerContent />
     </RBSheet>
   )
 }
