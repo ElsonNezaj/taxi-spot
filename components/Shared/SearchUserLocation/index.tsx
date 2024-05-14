@@ -39,7 +39,7 @@ export default function SearchUserLocation(): ReactElement {
           position: "absolute",
           zIndex: 2,
           width: "100%",
-          top: Constants.statusBarHeight + 10,
+          top: Constants.statusBarHeight + 20,
           alignSelf: "center"
         },
         listView: {
