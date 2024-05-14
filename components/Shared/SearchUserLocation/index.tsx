@@ -2,9 +2,10 @@ import React, { ReactElement } from "react";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import Constants from "expo-constants";
 import { useState } from "react";
-import { useAppSelector } from "../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { fetchDestination, fetchUserLocation } from "../../../redux/API/fetchDestination";
 import { API_KEY } from "../../../assets/key/Google_API/api";
+import { handleConfirmTrip } from "../../../redux/places/placesSlice";
 
 export interface LatLng {
   latitude: number,
@@ -12,11 +13,13 @@ export interface LatLng {
 }
 
 export default function SearchUserLocation(): ReactElement {
+  const dispatch = useAppDispatch()
   const currentStatePlaces = useAppSelector(state => state.places.currentStatePlaces)
   const [placeValue, setPlaceValue] = useState<string>("")
 
   const handleUserLocation = (placeID: string) => {
     fetchUserLocation(placeID)
+    dispatch(handleConfirmTrip(true))
   }
 
   return (

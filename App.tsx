@@ -7,6 +7,7 @@ import { store } from './redux/store';
 import Content from './components/Content';
 import { StatusBar } from 'expo-status-bar';
 import ConfirmDialog from './components/Shared/ConfirmDialog';
+import BottomDrawer from './components/BottomDrawer/DrawerContainer';
 
 export default function App() {
 
@@ -21,6 +22,7 @@ export default function App() {
           style='light'
         />
         <ConfirmDialog />
+        <BottomDrawer />
       </Provider>
     </View>
 
