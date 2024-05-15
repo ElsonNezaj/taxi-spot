@@ -68,16 +68,16 @@ export default function Content(): ReactElement {
   }, [])
 
   useEffect(() => {
-    if (userLocation && destination) {
+    if (currentView === "routing" && userLocation && destination) {
       mapRef.current?.fitToCoordinates(
         [userLocation, destination],
         {
           animated: true,
-          edgePadding: { top: 140, bottom: 20, left: 20, right: 20 }
+          edgePadding: { top: 140, bottom: 20, left: 40, right: 40 }
         }
       )
     }
-  }, [userLocation, destination])
+  }, [currentView, userLocation, destination])
 
   return (
     <>
@@ -99,13 +99,13 @@ export default function Content(): ReactElement {
                 id="userMarker"
               />
             }
-            {currentView === "route" && userLocation && destination &&
+            {currentView === "routing" && userLocation && destination &&
               <MapViewDirections
                 apikey={API_KEY}
                 origin={userLocation}
                 destination={destination}
-                strokeColor="red"
-                strokeWidth={3}
+                strokeColor="#8478A3"
+                strokeWidth={5}
               />
             }
             {destination &&
