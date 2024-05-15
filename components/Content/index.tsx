@@ -1,11 +1,13 @@
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { Dimensions, StyleSheet, TouchableOpacity, View } from "react-native";
 import MapView, { LatLng, MarkerAnimated, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapViewDirections from 'react-native-maps-directions';
 
 import * as Location from 'expo-location';
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { handleConfirmLocation, setCurrentPosition, setUserLocation } from "../../redux/places/placesSlice";
 import AppHeader from "../AppHeader";
+import { API_KEY } from "../../assets/key/Google_API/api";
 
 export default function Content(): ReactElement {
   const dispatch = useAppDispatch();
@@ -97,6 +99,15 @@ export default function Content(): ReactElement {
                 id="userMarker"
               />
             }
+            {currentView === "route" && userLocation && destination &&
+              <MapViewDirections
+                apikey={API_KEY}
+                origin={userLocation}
+                destination={destination}
+                strokeColor="red"
+                strokeWidth={3}
+              />
+            }
             {destination &&
               <MarkerAnimated
                 image={require("../../assets/images/destination.png")}
@@ -104,6 +115,8 @@ export default function Content(): ReactElement {
                 id="destinationMarker"
               />
             }
+
+
 
           </MapView>
           {isBackdropVisible &&
