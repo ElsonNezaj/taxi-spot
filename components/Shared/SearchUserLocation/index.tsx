@@ -5,26 +5,26 @@ import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { fetchDestination, fetchUserLocation } from "../../../redux/API/fetchDestination";
 import { API_KEY } from "../../../assets/key/Google_API/api";
-import { handleConfirmTrip } from "../../../redux/places/placesSlice";
+import { handleConfirmTrip, saveUserData } from "../../../redux/places/placesSlice";
 
 export interface LatLng {
   latitude: number,
   longitude: number
 }
 
-export default function SearchUserLocation(): ReactElement {
+export default function SearchUserLocation({ isEditView, setIsEditView }: any): ReactElement {
   const dispatch = useAppDispatch()
-  const currentStatePlaces = useAppSelector(state => state.places.currentStatePlaces)
   const [placeValue, setPlaceValue] = useState<string>("")
 
   const handleUserLocation = (placeID: string) => {
     fetchUserLocation(placeID)
-    dispatch(handleConfirmTrip(true))
+    isEditView && setIsEditView(false)
+    !isEditView && dispatch(handleConfirmTrip(true))
   }
 
   return (
     <GooglePlacesAutocomplete
-      placeholder={currentStatePlaces === "destination" ? 'Zgjidhni destinacionin tuaj' : "Zgjidhni vendndodhjen tuaj"}
+      placeholder={"Zgjidhni vendndodhjen tuaj"}
       query={{ key: API_KEY, language: "en", components: "country:AL" }}
       listViewDisplayed={placeValue.length <= 3 ? false : true}
       enableHighAccuracyLocation
@@ -32,6 +32,7 @@ export default function SearchUserLocation(): ReactElement {
       minLength={3}
       onPress={(data) => {
         handleUserLocation(data.place_id)
+        dispatch(saveUserData(data))
       }}
       textInputProps={{
         onChangeText: (text) => setPlaceValue(text),
@@ -39,10 +40,10 @@ export default function SearchUserLocation(): ReactElement {
       }}
       styles={{
         container: {
-          position: "absolute",
+          position: isEditView ? "relative" : "absolute",
           zIndex: 2,
           width: "100%",
-          top: Constants.statusBarHeight + 20,
+          top: isEditView ? "auto" : Constants.statusBarHeight + 20,
           alignSelf: "center"
         },
         listView: {

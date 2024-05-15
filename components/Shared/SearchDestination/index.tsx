@@ -2,21 +2,24 @@ import React, { ReactElement } from "react";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import Constants from "expo-constants";
 import { useState } from "react";
-import { useAppSelector } from "../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { fetchDestination } from "../../../redux/API/fetchDestination";
 import { API_KEY } from "../../../assets/key/Google_API/api";
+import { saveDestinationData } from "../../../redux/places/placesSlice";
 
 export interface LatLng {
   latitude: number,
   longitude: number
 }
 
-export default function SearchDestination(): ReactElement {
+export default function SearchDestination({ isEditView, setIsEditView }: any): ReactElement {
+  const dispatch = useAppDispatch()
   const currentStatePlaces = useAppSelector(state => state.places.currentStatePlaces)
   const [placeValue, setPlaceValue] = useState<string>("")
 
   const handleDestination = (placeID: string) => {
     fetchDestination(placeID)
+    isEditView && setIsEditView(false)
   }
 
   return (
@@ -29,6 +32,7 @@ export default function SearchDestination(): ReactElement {
       minLength={3}
       onPress={(data) => {
         handleDestination(data.place_id)
+        dispatch(saveDestinationData(data))
       }}
       textInputProps={{
         onChangeText: (text) => setPlaceValue(text),
@@ -36,10 +40,10 @@ export default function SearchDestination(): ReactElement {
       }}
       styles={{
         container: {
-          position: "absolute",
+          position: isEditView ? "relative" : "absolute",
           zIndex: 2,
           width: "100%",
-          top: Constants.statusBarHeight + 20,
+          top: isEditView ? 0 : Constants.statusBarHeight + 20,
           alignSelf: "center"
         },
         listView: {

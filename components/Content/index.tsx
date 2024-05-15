@@ -65,6 +65,18 @@ export default function Content(): ReactElement {
     getLocationAsync()
   }, [])
 
+  useEffect(() => {
+    if (userLocation && destination) {
+      mapRef.current?.fitToCoordinates(
+        [userLocation, destination],
+        {
+          animated: true,
+          edgePadding: { top: 140, bottom: 20, left: 20, right: 20 }
+        }
+      )
+    }
+  }, [userLocation, destination])
+
   return (
     <>
       {current &&
@@ -82,12 +94,14 @@ export default function Content(): ReactElement {
               <MarkerAnimated
                 image={require("../../assets/images/userLocation.png")}
                 coordinate={userLocation}
+                id="userMarker"
               />
             }
             {destination &&
               <MarkerAnimated
                 image={require("../../assets/images/destination.png")}
                 coordinate={destination}
+                id="destinationMarker"
               />
             }
 
