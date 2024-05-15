@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useRef, useState } from "react";
-import { Dimensions, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Dimensions, Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import MapView, { LatLng, MarkerAnimated, PROVIDER_GOOGLE } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 
@@ -94,10 +94,15 @@ export default function Content(): ReactElement {
             {
               userLocation &&
               <MarkerAnimated
-                image={require("../../assets/images/userLocation.png")}
                 coordinate={userLocation}
                 id="userMarker"
-              />
+                style={styles.marker}
+              >
+                <Image
+                  source={require("../../assets/images/userLocation.png")}
+                  style={styles.image}
+                />
+              </MarkerAnimated>
             }
             {currentView === "routing" && userLocation && destination &&
               <MapViewDirections
@@ -110,13 +115,16 @@ export default function Content(): ReactElement {
             }
             {destination &&
               <MarkerAnimated
-                image={require("../../assets/images/destination.png")}
                 coordinate={destination}
                 id="destinationMarker"
-              />
+                style={styles.marker}
+              >
+                <Image
+                  source={require("../../assets/images/destination.png")}
+                  style={styles.image}
+                />
+              </MarkerAnimated>
             }
-
-
 
           </MapView>
           {isBackdropVisible &&
@@ -151,6 +159,14 @@ const styles = StyleSheet.create({
   touchView: {
     height: "100%",
     width: "100%"
+  },
+  marker: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  image: {
+    width: 30,
+    height: 30,
+    justifyContent: "center"
   }
-
 });
