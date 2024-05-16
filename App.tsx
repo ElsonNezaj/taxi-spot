@@ -8,9 +8,9 @@ import Content from './components/Content';
 import { StatusBar } from 'expo-status-bar';
 import ConfirmDialog from './components/Shared/ConfirmDialog';
 import BottomDrawer from './components/BottomDrawer/DrawerContainer';
+import OrderDetails from './components/OrderDetails';
 
 export default function App() {
-
   return (
     <View style={styles.container}>
       <Provider store={store}>
@@ -23,6 +23,7 @@ export default function App() {
         />
         <ConfirmDialog />
         <BottomDrawer />
+        <OrderDetails />
       </Provider>
     </View>
 

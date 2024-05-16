@@ -5,7 +5,7 @@ import MapViewDirections from 'react-native-maps-directions';
 
 import * as Location from 'expo-location';
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { handleConfirmLocation, setCurrentPosition, setUserLocation } from "../../redux/places/placesSlice";
+import { handleConfirmLocation, saveDirectionsData, setCurrentPosition, setUserLocation } from "../../redux/places/placesSlice";
 import AppHeader from "../AppHeader";
 import { API_KEY } from "../../assets/key/Google_API/api";
 
@@ -50,6 +50,10 @@ export default function Content(): ReactElement {
     }
   }
 
+  const onReadyDirections = (args: any) => {
+    dispatch(saveDirectionsData(args))
+  }
+
   useEffect(() => {
     if (currentView === "default") {
       if (currentStatePlaces === "destination" && destination) {
@@ -64,20 +68,20 @@ export default function Content(): ReactElement {
   }, [currentStatePlaces, destination, userLocation])
 
   useEffect(() => {
-    getLocationAsync()
-  }, [])
-
-  useEffect(() => {
     if (currentView === "routing" && userLocation && destination) {
       mapRef.current?.fitToCoordinates(
         [userLocation, destination],
         {
           animated: true,
-          edgePadding: { top: 140, bottom: 20, left: 40, right: 40 }
+          edgePadding: { top: 150, bottom: 200, left: 80, right: 80 }
         }
       )
     }
   }, [currentView, userLocation, destination])
+
+  useEffect(() => {
+    getLocationAsync()
+  }, [])
 
   return (
     <>
@@ -111,6 +115,8 @@ export default function Content(): ReactElement {
                 destination={destination}
                 strokeColor="#8478A3"
                 strokeWidth={5}
+                mode="DRIVING"
+                onReady={onReadyDirections}
               />
             }
             {destination &&

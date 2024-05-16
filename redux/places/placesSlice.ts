@@ -10,6 +10,7 @@ interface PlacesState {
   currentPosition?: any;
   destinationData: any;
   userData: any;
+  directionsData: any;
 }
 
 export interface LatLng {
@@ -26,6 +27,7 @@ const initialState: PlacesState = {
   userPosition: undefined,
   destinationData: undefined,
   userData: undefined,
+  directionsData: undefined,
 };
 
 export const placesSlice = createSlice({
@@ -59,6 +61,9 @@ export const placesSlice = createSlice({
     saveUserData: (state: PlacesState, action: PayloadAction<any>) => {
       state.userData = action.payload;
     },
+    saveDirectionsData: (state: PlacesState, action: PayloadAction<any>) => {
+      state.directionsData = action.payload;
+    },
   },
 });
 
@@ -71,5 +76,6 @@ export const {
   setUserLocation,
   saveDestinationData,
   saveUserData,
+  saveDirectionsData,
 } = placesSlice.actions;
 export default placesSlice.reducer;
