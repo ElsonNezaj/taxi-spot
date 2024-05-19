@@ -5,11 +5,19 @@ import { calculateTotal } from "../../../redux/services";
 
 interface IProps {
   handleCancel: any,
-  handleProceed: any
+  handleProceed: (distance: number, duration: number, total: number) => void
 }
 
 export default function MainInfo({ handleCancel, handleProceed }: IProps): ReactElement {
   const directionsData = useAppSelector(state => state.places.directionsData)
+
+  const handleInfoProceed = () => {
+    handleProceed(
+      Number(directionsData?.distance.toFixed(2)),
+      Math.ceil(directionsData?.duration),
+      calculateTotal(directionsData?.distance, Math.ceil(directionsData?.duration))
+    )
+  }
 
   return <View>
     <View style={styles.travelInformation}>
@@ -28,7 +36,7 @@ export default function MainInfo({ handleCancel, handleProceed }: IProps): React
     </View>
     <View style={styles.actionContainer}>
       <TouchableOpacity onPress={() => handleCancel()} style={styles.cancelButton}><Text style={styles.label}>Anullo</Text></TouchableOpacity>
-      <TouchableOpacity onPress={() => handleProceed()} style={styles.proceedButton}><Text style={styles.label}>Vazhdo</Text></TouchableOpacity>
+      <TouchableOpacity onPress={() => handleInfoProceed()} style={styles.proceedButton}><Text style={styles.label}>Vazhdo</Text></TouchableOpacity>
     </View>
   </View>
 }

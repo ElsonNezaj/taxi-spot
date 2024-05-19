@@ -4,7 +4,13 @@ import { useAppSelector } from "../../../redux/hooks";
 import { calculateTotal } from "../../../redux/services";
 import { useDispatch } from "react-redux";
 import { handleCurrentView } from "../../../redux/app/appSlice";
-import { handleCurrentState, saveDestinationData, saveDirectionsData, setDestination, setUserLocation } from "../../../redux/places/placesSlice";
+import {
+  handleCurrentState,
+  saveDestinationData,
+  saveDirectionsData,
+  setDestination,
+  setUserLocation
+} from "../../../redux/places/placesSlice";
 import MainInfo from "../MainInfo";
 
 interface DetailsPayload {
@@ -52,6 +58,8 @@ export default function OrderDetails(): ReactElement {
   useEffect(() => {
     setDetailsView('main-info')
   }, [destination, userLocation])
+
+  console.log(detailsPayload)
 
   return (
     <>
