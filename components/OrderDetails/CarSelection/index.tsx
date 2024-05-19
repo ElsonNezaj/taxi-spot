@@ -11,7 +11,10 @@ export default function CarSelection(): ReactElement {
 
   return (
     <View style={styles.selectionContainer}>
-      <Text style={styles.headerLabel}>Zgjidhni llojin e makines : </Text>
+      <View style={styles.header}>
+        <TouchableOpacity style={styles.backButton}><Text style={styles.backText}>{"<"}</Text></TouchableOpacity>
+        <Text style={styles.headerLabel}>Zgjidhni llojin e makines : </Text>
+      </View>
       <View style={styles.optionContainer}>
         {CAR_SELECTION.map(option =>
           <TouchableOpacity
@@ -32,10 +35,24 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%"
   },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 20
+  },
   headerLabel: {
     fontSize: 16,
     fontWeight: "bold",
     letterSpacing: 1
+  },
+  backButton: {
+    width: 30,
+    height: 30,
+    backgroundColor: "white",
+    borderRadius: 75,
+    elevation: 5,
+    justifyContent: "center",
+    alignItems: "center"
   },
   optionContainer: {
     flexDirection: "row",
@@ -44,9 +61,14 @@ const styles = StyleSheet.create({
     marginTop: 20,
     gap: 20
   },
+  backText: {
+    fontSize: 18,
+    color: "grey",
+    fontWeight: "bold"
+  },
   option: {
     width: "33%",
-    height: "80%",
+    height: "70%",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 15,
