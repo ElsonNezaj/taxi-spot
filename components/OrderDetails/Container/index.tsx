@@ -12,6 +12,7 @@ import {
   setUserLocation
 } from "../../../redux/places/placesSlice";
 import MainInfo from "../MainInfo";
+import CarSelection from "../CarSelection";
 
 interface DetailsPayload {
   distance: number,
@@ -70,7 +71,7 @@ export default function OrderDetails(): ReactElement {
             <MainInfo handleCancel={handleCancel} handleProceed={handleProceedInfo} />
             :
             detailsView === "car-selection" &&
-            <View></View>
+            <CarSelection />
           }
         </View>
       }

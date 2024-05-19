@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: '#8478A3',
     position: "absolute",
-    top: Constants.statusBarHeight,
+    top: Constants.statusBarHeight + 10,
     justifyContent: "center",
     alignItems: "center",
     paddingTop: 10,
