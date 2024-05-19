@@ -8,7 +8,7 @@ import Content from './components/Content';
 import { StatusBar } from 'expo-status-bar';
 import ConfirmDialog from './components/Shared/ConfirmDialog';
 import BottomDrawer from './components/BottomDrawer/DrawerContainer';
-import OrderDetails from './components/OrderDetails';
+import OrderDetails from './components/OrderDetails/Container';
 
 export default function App() {
   return (

@@ -1,11 +1,11 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useAppSelector } from "../../redux/hooks";
-import { calculateTotal } from "../../redux/services";
+import { useAppSelector } from "../../../redux/hooks";
+import { calculateTotal } from "../../../redux/services";
 import { useDispatch } from "react-redux";
-import { handleCurrentView } from "../../redux/app/appSlice";
-import { handleCurrentState, saveDestinationData, saveDirectionsData, setDestination, setUserLocation } from "../../redux/places/placesSlice";
-import MainInfo from "./MainInfo";
+import { handleCurrentView } from "../../../redux/app/appSlice";
+import { handleCurrentState, saveDestinationData, saveDirectionsData, setDestination, setUserLocation } from "../../../redux/places/placesSlice";
+import MainInfo from "../MainInfo";
 
 interface DetailsPayload {
   distance: number,
@@ -81,43 +81,5 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 50,
     padding: 20,
     elevation: 10
-  },
-  travelInformation: {
-    justifyContent: "space-between",
-    gap: 10
-  },
-  travelLabel: {
-    fontSize: 15,
-    letterSpacing: 2
-  },
-  value: {
-    fontWeight: "bold"
-  },
-  actionContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    marginTop: 30
-  },
-  cancelButton: {
-    height: 40,
-    justifyContent: "center",
-    backgroundColor: "red",
-    width: "40%",
-    alignItems: "center",
-    borderRadius: 5
-  },
-  proceedButton: {
-    backgroundColor: "#379bb0",
-    height: 40,
-    justifyContent: "center",
-    width: "40%",
-    alignItems: "center",
-    borderRadius: 5
-  },
-  label: {
-    color: "white",
-    fontSize: 15,
-    textTransform: "uppercase",
-    fontWeight: "bold"
   }
 })
