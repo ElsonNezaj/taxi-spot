@@ -1,18 +1,69 @@
-import React, { ReactElement } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { ReactElement, useEffect, useState } from "react";
+import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useAppSelector } from "../../redux/hooks";
+import { calculateTotal } from "../../redux/services";
+import { useDispatch } from "react-redux";
+import { handleCurrentView } from "../../redux/app/appSlice";
+import { handleCurrentState, saveDestinationData, saveDirectionsData, setDestination, setUserLocation } from "../../redux/places/placesSlice";
+import MainInfo from "./MainInfo";
+
+interface DetailsPayload {
+  distance: number,
+  duration: number,
+  total: number,
+  couponCode?: string,
+  rideType: string,
+  specificDetails?: string,
+  secondPartyNumber?: number
+}
 
 export default function OrderDetails(): ReactElement {
+  const dispatch = useDispatch()
   const currentView = useAppSelector(state => state.app.currentView)
-  const directionsData = useAppSelector(state => state.places.directionsData)
+  const destination = useAppSelector(state => state.places.destination)
+  const userLocation = useAppSelector(state => state.places.userPosition)
+
+  const [detailsPayload, setDetailsPayload] = useState<any>(undefined)
+  const [detailsView, setDetailsView] = useState<string>("main-info")
+
+  const handleDetailsSwitch = (value: string) => {
+    setDetailsView(value)
+  }
+
+  const handleCancel = () => {
+    dispatch(handleCurrentView("default"))
+    dispatch(saveDestinationData(undefined))
+    dispatch(saveDirectionsData(undefined))
+    dispatch(handleCurrentState("destination"))
+    dispatch(setDestination(undefined))
+    dispatch(setUserLocation(undefined))
+  }
+
+  const handleProceedInfo = (distance: number, duration: number, total: number) => {
+    setDetailsView("car-selection")
+    setDetailsPayload({
+      ...detailsPayload,
+      ["distance"]: distance,
+      ["duration"]: duration,
+      ["total"]: total
+    })
+  }
+
+  useEffect(() => {
+    setDetailsView('main-info')
+  }, [destination, userLocation])
+
   return (
     <>
       {
         currentView === "routing" &&
         <View style={styles.detailsContainer}>
-          <View>
-            <Text>Distanca : {directionsData?.distance}</Text>
-          </View>
+          {detailsView === "main-info" ?
+            <MainInfo handleCancel={handleCancel} handleProceed={handleProceedInfo} />
+            :
+            detailsView === "car-selection" &&
+            <View></View>
+          }
         </View>
       }
     </>
@@ -27,9 +78,46 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     bottom: "0%",
     borderTopStartRadius: 50,
-    borderTopEndRadius: 40,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    padding: 20
+    borderTopEndRadius: 50,
+    padding: 20,
+    elevation: 10
+  },
+  travelInformation: {
+    justifyContent: "space-between",
+    gap: 10
+  },
+  travelLabel: {
+    fontSize: 15,
+    letterSpacing: 2
+  },
+  value: {
+    fontWeight: "bold"
+  },
+  actionContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: 30
+  },
+  cancelButton: {
+    height: 40,
+    justifyContent: "center",
+    backgroundColor: "red",
+    width: "40%",
+    alignItems: "center",
+    borderRadius: 5
+  },
+  proceedButton: {
+    backgroundColor: "#379bb0",
+    height: 40,
+    justifyContent: "center",
+    width: "40%",
+    alignItems: "center",
+    borderRadius: 5
+  },
+  label: {
+    color: "white",
+    fontSize: 15,
+    textTransform: "uppercase",
+    fontWeight: "bold"
   }
 })
