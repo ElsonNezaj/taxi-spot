@@ -73,7 +73,7 @@ export default function Content(): ReactElement {
         [userLocation, destination],
         {
           animated: true,
-          edgePadding: { top: 150, bottom: 200, left: 80, right: 80 }
+          edgePadding: { top: 150, bottom: 150, left: 80, right: 80 }
         }
       )
     }
@@ -171,8 +171,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: {
-    width: 30,
-    height: 30,
+    width: 50,
+    height: 50,
     justifyContent: "center"
   }
 });
