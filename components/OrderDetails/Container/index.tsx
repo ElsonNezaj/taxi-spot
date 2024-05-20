@@ -1,7 +1,6 @@
 import React, { ReactElement, useEffect, useState } from "react";
-import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { useAppSelector } from "../../../redux/hooks";
-import { calculateTotal } from "../../../redux/services";
 import { useDispatch } from "react-redux";
 import { handleCurrentView } from "../../../redux/app/appSlice";
 import {
