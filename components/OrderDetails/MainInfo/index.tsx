@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useAppSelector } from "../../../redux/hooks";
 import { calculateTotal } from "../../../redux/services";
+import ActionButtons from "../ActionButtons";
 
 interface IProps {
   handleCancel: any,
@@ -34,10 +35,7 @@ export default function MainInfo({ handleCancel, handleProceed }: IProps): React
         <Text style={styles.value}>{calculateTotal(directionsData?.distance, Math.ceil(directionsData?.duration))} LEK</Text>
       </Text>
     </View>
-    <View style={styles.actionContainer}>
-      <TouchableOpacity onPress={() => handleCancel()} style={styles.cancelButton}><Text style={styles.label}>Anullo</Text></TouchableOpacity>
-      <TouchableOpacity onPress={() => handleInfoProceed()} style={styles.proceedButton}><Text style={styles.label}>Vazhdo</Text></TouchableOpacity>
-    </View>
+    <ActionButtons handleCancel={handleCancel} handleProceed={handleInfoProceed} />
   </View>
 }
 
@@ -53,31 +51,5 @@ const styles = StyleSheet.create({
   value: {
     fontWeight: "bold"
   },
-  actionContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    marginTop: 30
-  },
-  cancelButton: {
-    height: 40,
-    justifyContent: "center",
-    backgroundColor: "red",
-    width: "40%",
-    alignItems: "center",
-    borderRadius: 5
-  },
-  proceedButton: {
-    backgroundColor: "#379bb0",
-    height: 40,
-    justifyContent: "center",
-    width: "40%",
-    alignItems: "center",
-    borderRadius: 5
-  },
-  label: {
-    color: "white",
-    fontSize: 15,
-    textTransform: "uppercase",
-    fontWeight: "bold"
-  }
+
 })

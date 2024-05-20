@@ -60,8 +60,6 @@ export default function OrderDetails(): ReactElement {
     setDetailsView('main-info')
   }, [destination, userLocation])
 
-  console.log(detailsPayload)
-
   return (
     <>
       {

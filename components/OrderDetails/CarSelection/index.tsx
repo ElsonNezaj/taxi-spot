@@ -1,6 +1,7 @@
 import React, { ReactElement, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { CAR_SELECTION } from "../../../assets/constants";
+import ActionButtons from "../ActionButtons";
 
 export default function CarSelection(): ReactElement {
   const [selectedType, setSelectedType] = useState<string | undefined>(undefined)
@@ -22,10 +23,12 @@ export default function CarSelection(): ReactElement {
             onPress={() => handleTypeSwitch(option.type)}
             style={[styles.option, selectedType === option.type && styles.selectedType]}
           >
+            <Image source={option.image} style={styles.image} />
             <Text style={styles.optionLabel}>{option.label}</Text>
           </TouchableOpacity>
         )}
       </View>
+      <ActionButtons handleCancel={() => { }} handleProceed={() => { }} />
     </View>
   )
 }
@@ -57,7 +60,6 @@ const styles = StyleSheet.create({
   optionContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
-    height: "100%",
     marginTop: 20,
     gap: 20
   },
@@ -68,19 +70,29 @@ const styles = StyleSheet.create({
   },
   option: {
     width: "33%",
-    height: "70%",
-    justifyContent: "center",
+    maxHeight: 110,
     alignItems: "center",
     borderRadius: 15,
-    backgroundColor: "white",
-    elevation: 10
+    backgroundColor: "#fff",
+    elevation: 10,
+    borderWidth: 2,
+    borderColor: "transparent"
   },
   optionLabel: {
     fontSize: 16,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    position: "absolute",
+    top: "75%"
   },
   selectedType: {
     borderWidth: 2,
-    borderColor: "#8478A3"
+    borderColor: "#8478A3",
+    backgroundColor: "#8478A354",
+    elevation: 0
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "transparent"
   }
 })
