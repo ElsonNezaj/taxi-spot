@@ -1,34 +1,48 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { CAR_SELECTION } from "../../../assets/constants";
 import ActionButtons from "../ActionButtons";
 
-export default function CarSelection(): ReactElement {
-  const [selectedType, setSelectedType] = useState<string | undefined>(undefined)
+interface IProps {
+  handleCancel: () => void,
+  handleProceed: (rideType: any) => void
+  handleBack: (backValue: string) => void
+}
 
-  const handleTypeSwitch = (type: string) => {
+export default function CarSelection({ handleCancel, handleProceed, handleBack }: IProps): ReactElement {
+  const [selectedType, setSelectedType] = useState<any | undefined>(undefined)
+
+  const handleTypeSwitch = (type: any) => {
     setSelectedType(type)
   }
 
   return (
     <View style={styles.selectionContainer}>
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton}><Text style={styles.backText}>{"<"}</Text></TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => handleBack("main-info")}
+          style={styles.backButton}
+        >
+          <Text style={styles.backText}>{"<"}</Text>
+        </TouchableOpacity>
         <Text style={styles.headerLabel}>Zgjidhni llojin e makines : </Text>
       </View>
       <View style={styles.optionContainer}>
         {CAR_SELECTION.map(option =>
           <TouchableOpacity
             key={option.id}
-            onPress={() => handleTypeSwitch(option.type)}
-            style={[styles.option, selectedType === option.type && styles.selectedType]}
+            onPress={() => handleTypeSwitch(option)}
+            style={[styles.option, selectedType && selectedType.type === option.type && styles.selectedType]}
           >
             <Image source={option.image} style={styles.image} />
             <Text style={styles.optionLabel}>{option.label}</Text>
           </TouchableOpacity>
         )}
       </View>
-      <ActionButtons handleCancel={() => { }} handleProceed={() => { }} />
+      <ActionButtons
+        handleCancel={() => handleCancel()}
+        handleProceed={() => handleProceed(selectedType)}
+      />
     </View>
   )
 }
@@ -55,7 +69,9 @@ const styles = StyleSheet.create({
     borderRadius: 75,
     elevation: 5,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    borderWidth: 0.2,
+    borderColor: "grey"
   },
   optionContainer: {
     flexDirection: "row",
@@ -73,7 +89,7 @@ const styles = StyleSheet.create({
     maxHeight: 110,
     alignItems: "center",
     borderRadius: 15,
-    backgroundColor: "#fff",
+    backgroundColor: "white",
     elevation: 10,
     borderWidth: 2,
     borderColor: "transparent"
@@ -88,7 +104,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#8478A3",
     backgroundColor: "#8478A354",
-    elevation: 0
+    elevation: 0,
   },
   image: {
     width: "100%",

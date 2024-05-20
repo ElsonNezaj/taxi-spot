@@ -13,15 +13,14 @@ import {
 } from "../../../redux/places/placesSlice";
 import MainInfo from "../MainInfo";
 import CarSelection from "../CarSelection";
+import { ExtraDetails } from "../ExtraDetails";
 
 interface DetailsPayload {
   distance: number,
   duration: number,
   total: number,
-  couponCode?: string,
-  rideType: string,
-  specificDetails?: string,
-  secondPartyNumber?: number
+  rideType: any,
+  details: any,
 }
 
 export default function OrderDetails(): ReactElement {
@@ -33,8 +32,8 @@ export default function OrderDetails(): ReactElement {
   const [detailsPayload, setDetailsPayload] = useState<any>(undefined)
   const [detailsView, setDetailsView] = useState<string>("main-info")
 
-  const handleDetailsSwitch = (value: string) => {
-    setDetailsView(value)
+  const handleBack = (backValue: string) => {
+    setDetailsView(backValue)
   }
 
   const handleCancel = () => {
@@ -56,6 +55,21 @@ export default function OrderDetails(): ReactElement {
     })
   }
 
+  const handleCarSelectionInfo = (rideType: any) => {
+    setDetailsPayload({
+      ...detailsPayload,
+      ["rideType"]: rideType
+    })
+    setDetailsView("extra-details")
+  }
+
+  const handleExtraProceed = (details: any) => {
+    setDetailsPayload({
+      ...detailsPayload,
+      ["details"]: details
+    })
+  }
+
   useEffect(() => {
     setDetailsView('main-info')
   }, [destination, userLocation])
@@ -68,8 +82,18 @@ export default function OrderDetails(): ReactElement {
           {detailsView === "main-info" ?
             <MainInfo handleCancel={handleCancel} handleProceed={handleProceedInfo} />
             :
-            detailsView === "car-selection" &&
-            <CarSelection />
+            detailsView === "car-selection" ?
+              <CarSelection
+                handleCancel={handleCancel}
+                handleProceed={handleCarSelectionInfo}
+                handleBack={handleBack}
+              />
+              : detailsView === "extra-details" &&
+              <ExtraDetails
+                handleCancel={handleCancel}
+                handleProceed={handleExtraProceed}
+                handleBack={handleBack}
+              />
           }
         </View>
       }
