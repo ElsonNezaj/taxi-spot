@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import 'react-native-gesture-handler';
 
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
@@ -9,12 +10,13 @@ import { StatusBar } from 'expo-status-bar';
 import ConfirmDialog from './components/Shared/ConfirmDialog';
 import BottomDrawer from './components/MapView/BottomDrawer/DrawerContainer';
 import OrderDetails from './components/MapView/OrderDetails/Container';
+import AppNavigation from './components/Navigation';
 
 export default function App() {
   return (
     <View style={styles.container}>
       <Provider store={store}>
-        <Content />
+        <AppNavigation />
         <StatusBar
           translucent
           animated
