@@ -13,14 +13,7 @@ import {
 import MainInfo from "../MainInfo";
 import CarSelection from "../CarSelection";
 import { ExtraDetails } from "../ExtraDetails";
-
-interface DetailsPayload {
-  distance: number,
-  duration: number,
-  total: number,
-  rideType: any,
-  details: any,
-}
+import LocationReviewUpdate from "../../../Shared/LocationReviewUpdate";
 
 export default function OrderDetails(): ReactElement {
   const dispatch = useDispatch()
@@ -29,7 +22,7 @@ export default function OrderDetails(): ReactElement {
   const userLocation = useAppSelector(state => state.places.userPosition)
 
   const [detailsPayload, setDetailsPayload] = useState<any>(undefined)
-  const [detailsView, setDetailsView] = useState<string>("main-info")
+  const [detailsView, setDetailsView] = useState<string>("update-location")
 
   const handleBack = (backValue: string) => {
     setDetailsView(backValue)
@@ -70,7 +63,7 @@ export default function OrderDetails(): ReactElement {
   }
 
   useEffect(() => {
-    setDetailsView('main-info')
+    setDetailsView('update-location')
   }, [destination, userLocation])
 
   return (
@@ -78,21 +71,25 @@ export default function OrderDetails(): ReactElement {
       {
         currentView === "routing" &&
         <View style={styles.detailsContainer}>
-          {detailsView === "main-info" ?
-            <MainInfo handleCancel={handleCancel} handleProceed={handleProceedInfo} />
-            :
-            detailsView === "car-selection" ?
-              <CarSelection
-                handleCancel={handleCancel}
-                handleProceed={handleCarSelectionInfo}
-                handleBack={handleBack}
-              />
-              : detailsView === "extra-details" &&
-              <ExtraDetails
-                handleCancel={handleCancel}
-                handleProceed={handleExtraProceed}
-                handleBack={handleBack}
-              />
+          {
+            detailsView === "update-location" ?
+              <LocationReviewUpdate />
+              :
+              detailsView === "main-info" ?
+                <MainInfo handleCancel={handleCancel} handleProceed={handleProceedInfo} />
+                :
+                detailsView === "car-selection" ?
+                  <CarSelection
+                    handleCancel={handleCancel}
+                    handleProceed={handleCarSelectionInfo}
+                    handleBack={handleBack}
+                  />
+                  : detailsView === "extra-details" &&
+                  <ExtraDetails
+                    handleCancel={handleCancel}
+                    handleProceed={handleExtraProceed}
+                    handleBack={handleBack}
+                  />
           }
         </View>
       }

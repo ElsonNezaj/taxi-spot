@@ -3,7 +3,6 @@ import { StyleSheet, View, Text, TouchableHighlight, Image } from "react-native"
 import { useAppSelector } from "../../../redux/hooks";
 import SearchDestination from "../SearchDestination";
 import SearchUserLocation from "../SearchUserLocation";
-import Constants from "expo-constants";
 
 export default function LocationReviewUpdate(): ReactElement {
   const userData = useAppSelector(state => state.places.userData)
@@ -54,8 +53,6 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     backgroundColor: '#8478A3',
-    position: "absolute",
-    top: Constants.statusBarHeight + 10,
     justifyContent: "center",
     alignItems: "center",
     paddingTop: 10,

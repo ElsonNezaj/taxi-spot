@@ -1,8 +1,8 @@
 import React, { ReactElement } from "react";
-import SearchDestination from "../Shared/SearchDestination";
-import { useAppSelector } from "../../redux/hooks";
-import SearchUserLocation from "../Shared/SearchUserLocation";
-import LocationReviewUpdate from "../Shared/LocationReviewUpdate";
+import SearchDestination from "../../Shared/SearchDestination";
+import { useAppSelector } from "../../../redux/hooks";
+import SearchUserLocation from "../../Shared/SearchUserLocation";
+import LocationReviewUpdate from "../../Shared/LocationReviewUpdate";
 
 
 export default function AppHeader(): ReactElement {
@@ -19,7 +19,7 @@ export default function AppHeader(): ReactElement {
           }
         </>
         :
-        <LocationReviewUpdate />
+        <></>
       }
     </>
   )

@@ -6,7 +6,6 @@ import MapViewDirections from 'react-native-maps-directions';
 import * as Location from 'expo-location';
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { handleConfirmLocation, saveDirectionsData, setCurrentPosition, setUserLocation } from "../../../redux/places/placesSlice";
-import AppHeader from "../../AppHeader";
 import { API_KEY } from "../../../assets/key/Google_API/api";
 
 export default function Content(): ReactElement {
@@ -141,7 +140,6 @@ export default function Content(): ReactElement {
               />
             </View>
           }
-          <AppHeader />
         </>
       }
     </>

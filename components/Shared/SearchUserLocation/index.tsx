@@ -40,11 +40,9 @@ export default function SearchUserLocation({ isEditView, setIsEditView }: any): 
       }}
       styles={{
         container: {
-          position: isEditView ? "relative" : "absolute",
+          position: "relative",
           zIndex: 2,
           width: "100%",
-          top: isEditView ? "auto" : Constants.statusBarHeight + 20,
-          alignSelf: "center"
         },
         listView: {
           width: "99%",
@@ -54,6 +52,8 @@ export default function SearchUserLocation({ isEditView, setIsEditView }: any): 
           maxHeight: 200,
           overflow: "scroll",
           zIndex: 0,
+          position: "absolute",
+          top: 40,
         },
         row: {
           backgroundColor: "#8478A3",
@@ -67,11 +67,11 @@ export default function SearchUserLocation({ isEditView, setIsEditView }: any): 
         },
         textInputContainer: {
           width: "80%",
-          alignSelf: "center",
           borderRadius: 75,
           elevation: 5,
           borderWidth: 2,
           borderColor: "#8478A3",
+          marginLeft: 20
         },
         textInput: {
           height: "100%",
