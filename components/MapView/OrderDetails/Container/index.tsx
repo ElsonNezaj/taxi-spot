@@ -1,15 +1,15 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { useAppSelector } from "../../../redux/hooks";
+import { useAppSelector } from "../../../../redux/hooks";
 import { useDispatch } from "react-redux";
-import { handleCurrentView } from "../../../redux/app/appSlice";
+import { handleCurrentView } from "../../../../redux/app/appSlice";
 import {
   handleCurrentState,
   saveDestinationData,
   saveDirectionsData,
   setDestination,
   setUserLocation
-} from "../../../redux/places/placesSlice";
+} from "../../../../redux/places/placesSlice";
 import MainInfo from "../MainInfo";
 import CarSelection from "../CarSelection";
 import { ExtraDetails } from "../ExtraDetails";

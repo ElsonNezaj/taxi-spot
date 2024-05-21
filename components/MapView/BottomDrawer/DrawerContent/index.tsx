@@ -1,8 +1,8 @@
 import React, { ReactElement } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useAppDispatch } from "../../../redux/hooks";
-import { handleConfirmTrip, handleCurrentState, setUserLocation } from "../../../redux/places/placesSlice";
-import { handleCurrentView } from "../../../redux/app/appSlice";
+import { useAppDispatch } from "../../../../redux/hooks";
+import { handleConfirmTrip, handleCurrentState, setUserLocation } from "../../../../redux/places/placesSlice";
+import { handleCurrentView } from "../../../../redux/app/appSlice";
 
 export default function DrawerContent(): ReactElement {
   const dispatch = useAppDispatch()

@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useAppSelector } from "../../../redux/hooks";
-import { calculateTotal } from "../../../redux/services";
+import { useAppSelector } from "../../../../redux/hooks";
+import { calculateTotal } from "../../../../redux/services";
 import ActionButtons from "../ActionButtons";
 
 interface IProps {

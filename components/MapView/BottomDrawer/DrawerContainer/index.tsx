@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useRef } from "react";
 import RBSheet from "react-native-raw-bottom-sheet";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import { handleConfirmTrip } from "../../../redux/places/placesSlice";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
+import { handleConfirmTrip } from "../../../../redux/places/placesSlice";
 import DrawerContent from "../DrawerContent";
 
 export default function BottomDrawer(): ReactElement {

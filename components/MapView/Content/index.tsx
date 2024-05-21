@@ -4,10 +4,10 @@ import MapView, { LatLng, MarkerAnimated, PROVIDER_GOOGLE } from 'react-native-m
 import MapViewDirections from 'react-native-maps-directions';
 
 import * as Location from 'expo-location';
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { handleConfirmLocation, saveDirectionsData, setCurrentPosition, setUserLocation } from "../../redux/places/placesSlice";
-import AppHeader from "../AppHeader";
-import { API_KEY } from "../../assets/key/Google_API/api";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { handleConfirmLocation, saveDirectionsData, setCurrentPosition, setUserLocation } from "../../../redux/places/placesSlice";
+import AppHeader from "../../AppHeader";
+import { API_KEY } from "../../../assets/key/Google_API/api";
 
 export default function Content(): ReactElement {
   const dispatch = useAppDispatch();
@@ -103,7 +103,7 @@ export default function Content(): ReactElement {
                 style={styles.marker}
               >
                 <Image
-                  source={require("../../assets/images/userLocation.png")}
+                  source={require("../../../assets/images/userLocation.png")}
                   style={styles.image}
                 />
               </MarkerAnimated>
@@ -126,7 +126,7 @@ export default function Content(): ReactElement {
                 style={styles.marker}
               >
                 <Image
-                  source={require("../../assets/images/destination.png")}
+                  source={require("../../../assets/images/destination.png")}
                   style={styles.image}
                 />
               </MarkerAnimated>

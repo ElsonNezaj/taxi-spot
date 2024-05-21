@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { CAR_SELECTION } from "../../../assets/constants";
+import { CAR_SELECTION } from "../../../../assets/constants";
 import ActionButtons from "../ActionButtons";
 
 interface IProps {

@@ -4,11 +4,11 @@ import { View, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
 
-import Content from './components/Content';
+import Content from './components/MapView/Content';
 import { StatusBar } from 'expo-status-bar';
 import ConfirmDialog from './components/Shared/ConfirmDialog';
-import BottomDrawer from './components/BottomDrawer/DrawerContainer';
-import OrderDetails from './components/OrderDetails/Container';
+import BottomDrawer from './components/MapView/BottomDrawer/DrawerContainer';
+import OrderDetails from './components/MapView/OrderDetails/Container';
 
 export default function App() {
   return (
