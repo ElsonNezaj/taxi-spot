@@ -1,30 +1,30 @@
 import React, { ReactElement } from "react";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import Constants from "expo-constants";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { fetchDestination } from "../../../redux/API/fetchDestination";
 import { API_KEY } from "../../../assets/key/Google_API/api";
 import { saveDestinationData } from "../../../redux/places/placesSlice";
+import { disableEditLocation } from "../../../redux/app/appSlice";
 
 export interface LatLng {
   latitude: number,
   longitude: number
 }
 
-export default function SearchDestination({ isEditView, setIsEditView }: any): ReactElement {
+export default function SearchDestination(): ReactElement {
   const dispatch = useAppDispatch()
-  const currentStatePlaces = useAppSelector(state => state.places.currentStatePlaces)
+  const isEditView = useAppSelector(state => state.app.isEditLocationEnabled)
   const [placeValue, setPlaceValue] = useState<string>("")
 
   const handleDestination = (placeID: string) => {
     fetchDestination(placeID)
-    isEditView && setIsEditView(false)
+    isEditView && dispatch(disableEditLocation())
   }
 
   return (
     <GooglePlacesAutocomplete
-      placeholder={currentStatePlaces === "destination" ? 'Zgjidhni destinacionin tuaj' : "Zgjidhni vendndodhjen tuaj"}
+      placeholder={'Zgjidhni destinacionin tuaj'}
       query={{ key: API_KEY, language: "en", components: "country:AL" }}
       listViewDisplayed={placeValue.length <= 3 ? false : true}
       enableHighAccuracyLocation
@@ -49,7 +49,7 @@ export default function SearchDestination({ isEditView, setIsEditView }: any): R
           margin: 5,
           marginTop: 5,
           alignSelf: "center",
-          maxHeight: 200,
+          maxHeight: 150,
           overflow: "scroll",
           zIndex: 0,
           position: "absolute",
@@ -71,7 +71,7 @@ export default function SearchDestination({ isEditView, setIsEditView }: any): R
           elevation: 5,
           borderWidth: 2,
           borderColor: "#8478A3",
-          marginLeft: 20
+          marginLeft: isEditView ? 0 : 20,
         },
         textInput: {
           height: "100%",

@@ -102,11 +102,11 @@ const styles = StyleSheet.create({
     minHeight: 200,
     width: "100%",
     position: "absolute",
-    backgroundColor: "white",
-    bottom: "0%",
+    backgroundColor: '#8478A3',
+    bottom: 0,
     borderTopStartRadius: 50,
     borderTopEndRadius: 50,
-    padding: 20,
-    elevation: 10
+    elevation: 5,
+    zIndex: 0
   }
 })

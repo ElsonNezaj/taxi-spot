@@ -1,70 +1,74 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement } from "react";
 import { StyleSheet, View, Text, TouchableHighlight, Image } from "react-native";
-import { useAppSelector } from "../../../redux/hooks";
-import SearchDestination from "../SearchDestination";
-import SearchUserLocation from "../SearchUserLocation";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { enableEditLocation } from "../../../redux/app/appSlice";
+import ActionButtons from "../../MapView/OrderDetails/ActionButtons";
 
 export default function LocationReviewUpdate(): ReactElement {
+  const dispatch = useAppDispatch();
   const userData = useAppSelector(state => state.places.userData)
   const destinationData = useAppSelector(state => state.places.destinationData)
-  const [isEditView, setIsEditView] = useState<boolean>(false)
-  const [editType, setEditType] = useState<string | undefined>(undefined)
 
   const handleEdit = (caller: string) => {
-    setEditType(caller)
-    setIsEditView(true)
+    dispatch(enableEditLocation(caller))
   }
 
   return <View style={styles.container}>
-    {isEditView ?
-      editType === "destination" ?
-        <SearchDestination isEditView={isEditView} setIsEditView={setIsEditView} /> :
-        <SearchUserLocation isEditView={isEditView} setIsEditView={setIsEditView} />
-      :
-      <>
-        <View style={styles.row}>
-          <View style={styles.start} />
-          <Text numberOfLines={1} ellipsizeMode="tail" style={styles.locationLabel}>
-            {userData.description}
-          </Text>
-          <View style={styles.iconContainer}>
-            <TouchableHighlight style={styles.iconBackground} onPress={() => handleEdit("user")}>
-              <Image source={require("../../../assets/images/edit.png")} style={styles.icon} />
-            </TouchableHighlight>
-          </View>
+    <View style={styles.location}>
+      <Text style={styles.helperText}>Vendndodhja juaj e nisjes</Text>
+      <View style={styles.row}>
+        <View style={styles.start} />
+        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.locationLabel}>
+          {userData.description}
+        </Text>
+        <View style={styles.iconContainer}>
+          <TouchableHighlight style={styles.iconBackground} onPress={() => handleEdit("user")}>
+            <Image source={require("../../../assets/images/edit.png")} style={styles.icon} />
+          </TouchableHighlight>
         </View>
-        <View style={styles.row}>
-          <View style={styles.stop} />
-          <Text numberOfLines={1} ellipsizeMode="tail" style={styles.locationLabel}>
-            {destinationData.description}
-          </Text>
-          <View style={styles.iconContainer}>
-            <TouchableHighlight style={styles.iconBackground} onPress={() => handleEdit("destination")}>
-              <Image source={require("../../../assets/images/edit.png")} style={styles.icon} />
-            </TouchableHighlight>
-          </View>
+      </View>
+    </View>
+    <View style={styles.location}>
+      <Text style={styles.helperText}>Destinacioni juaj</Text>
+      <View style={styles.row}>
+        <View style={styles.stop} />
+        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.locationLabel}>
+          {destinationData.description}
+        </Text>
+        <View style={styles.iconContainer}>
+          <TouchableHighlight style={styles.iconBackground} onPress={() => handleEdit("destination")}>
+            <Image source={require("../../../assets/images/edit.png")} style={styles.icon} />
+          </TouchableHighlight>
         </View>
-      </>
-    }
+      </View>
+    </View>
+    <ActionButtons handleCancel={() => { }} handleProceed={() => { }} />
   </View>
 }
 
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    backgroundColor: '#8478A3',
-    justifyContent: "center",
     alignItems: "center",
+    justifyContent: "center",
     paddingTop: 10,
     paddingBottom: 10,
-    gap: 10
+    gap: 20,
+    height: "100%",
+    padding: 10
+  },
+  location: {
+    marginLeft: 5,
+    marginRight: 5,
+    borderBottomColor: "white",
+    borderBottomWidth: 1,
+    justifyContent: "center",
+    paddingBottom: 10
   },
   row: {
     flexDirection: 'row',
     alignItems: "center",
     gap: 10,
-    marginLeft: 5,
-    marginRight: 5
   },
   label: {
     color: "white"
@@ -102,5 +106,10 @@ const styles = StyleSheet.create({
   icon: {
     width: 20,
     height: 20,
+  },
+  helperText: {
+    marginLeft: 25,
+    color: "#ccc",
+    letterSpacing: 0.5
   }
 })

@@ -15,25 +15,30 @@ export default function ActionButtons({ handleCancel, handleProceed }: IProps): 
 
 const styles = StyleSheet.create({
   actionContainer: {
+    width: "100%",
     flexDirection: "row",
-    justifyContent: "space-around",
-    marginTop: 30
+    justifyContent: "space-between",
+    marginTop: 10,
+    paddingLeft: 5,
+    paddingRight: 5
   },
   cancelButton: {
     height: 40,
     justifyContent: "center",
-    backgroundColor: "#8478A3",
-    width: "40%",
+    backgroundColor: "red",
+    width: "25%",
     alignItems: "center",
-    borderRadius: 5
+    borderRadius: 5,
+    elevation: 1
   },
   proceedButton: {
     backgroundColor: "#379bb0",
     height: 40,
     justifyContent: "center",
-    width: "40%",
+    width: "25%",
     alignItems: "center",
-    borderRadius: 5
+    borderRadius: 5,
+    elevation: 1
   },
   label: {
     color: "white",
