@@ -17,12 +17,7 @@ export default function App() {
     <View style={styles.container}>
       <Provider store={store}>
         <AppNavigation />
-        <StatusBar
-          translucent
-          animated
-          backgroundColor='#8478A3'
-          style='light'
-        />
+        <StatusBar backgroundColor='rgba(0, 0, 0, 0.5)' style='light' />
         <ConfirmDialog />
         <BottomDrawer />
         <OrderDetails />
