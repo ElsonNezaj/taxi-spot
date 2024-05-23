@@ -1,16 +1,32 @@
-import React, { ReactElement } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import React, { ReactElement, useEffect } from "react";
+import { View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import AppHeader from "../AppHeader";
 import Constants from "expo-constants";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { toggleOrderDetailsOnDrawer } from "../../../redux/app/appSlice";
+import { useDrawerStatus } from '@react-navigation/drawer';
+
 
 interface IProps {
   navigation: any
 }
 
 export default function Header({ navigation }: IProps): ReactElement {
+  const dispatch = useAppDispatch()
+  const currentView = useAppSelector(state => state.app.currentView)
+  const isDrawerOpen = useDrawerStatus()
+
   const handleOpen = () => {
-    navigation.openDrawer()
+    currentView === "routing" && dispatch(toggleOrderDetailsOnDrawer(false))
+    navigation?.openDrawer()
   }
+
+  useEffect(() => {
+    if (isDrawerOpen === "closed" && currentView === "routing") {
+      dispatch(toggleOrderDetailsOnDrawer(true))
+    }
+  }, [isDrawerOpen])
+
   return <View style={styles.headerContainer}>
     <TouchableOpacity onPress={handleOpen} style={styles.openButton}>
       <Image source={require("../../../assets/images/menu.png")} style={styles.icon} />
@@ -30,8 +46,8 @@ const styles = StyleSheet.create({
   openButton: {
     zIndex: 1,
     backgroundColor: "white",
-    width: 50,
-    height: 50,
+    width: 45,
+    height: 45,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 75,
