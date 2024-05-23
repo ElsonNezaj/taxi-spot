@@ -4,12 +4,14 @@ interface AppState {
   currentView: string;
   isEditLocationEnabled: boolean;
   editLocationCaller?: string;
+  hideOrderOnDrawer: boolean;
 }
 
 const initialState: AppState = {
   currentView: "default",
   isEditLocationEnabled: false,
   editLocationCaller: undefined,
+  hideOrderOnDrawer: true,
 };
 
 export const appSlice = createSlice({
@@ -27,9 +29,19 @@ export const appSlice = createSlice({
       (state.editLocationCaller = undefined),
         (state.isEditLocationEnabled = false);
     },
+    toggleOrderDetailsOnDrawer: (
+      state: AppState,
+      action: PayloadAction<boolean>
+    ) => {
+      state.hideOrderOnDrawer = action.payload;
+    },
   },
 });
 
-export const { handleCurrentView, enableEditLocation, disableEditLocation } =
-  appSlice.actions;
+export const {
+  handleCurrentView,
+  enableEditLocation,
+  disableEditLocation,
+  toggleOrderDetailsOnDrawer,
+} = appSlice.actions;
 export default appSlice.reducer;

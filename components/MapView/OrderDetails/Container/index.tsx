@@ -19,6 +19,7 @@ export default function OrderDetails(): ReactElement {
   const currentView = useAppSelector(state => state.app.currentView)
   const destination = useAppSelector(state => state.places.destination)
   const userLocation = useAppSelector(state => state.places.userPosition)
+  const hideOrderDetails = useAppSelector(state => state.app.hideOrderOnDrawer)
 
   const [detailsPayload, setDetailsPayload] = useState<any>(undefined)
   const [detailsView, setDetailsView] = useState<string>("update-location")
@@ -67,7 +68,7 @@ export default function OrderDetails(): ReactElement {
 
   return (
     <>
-      {
+      {hideOrderDetails &&
         currentView === "routing" &&
         <View style={styles.detailsContainer}>
           {
