@@ -1,11 +1,20 @@
 import React, { ReactElement } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import AppHeader from "../AppHeader";
 import Constants from "expo-constants";
 
-export default function Header(): ReactElement {
+interface IProps {
+  navigation: any
+}
+
+export default function Header({ navigation }: IProps): ReactElement {
+  const handleOpen = () => {
+    navigation.openDrawer()
+  }
   return <View style={styles.headerContainer}>
-    <TouchableOpacity style={styles.openButton}><Text>Open</Text></TouchableOpacity>
+    <TouchableOpacity onPress={handleOpen} style={styles.openButton}>
+      <Image source={require("../../../assets/images/menu.png")} style={styles.icon} />
+    </TouchableOpacity>
     <AppHeader />
   </View>
 }
@@ -28,5 +37,9 @@ const styles = StyleSheet.create({
     borderRadius: 75,
     marginLeft: 10,
     elevation: 10
+  },
+  icon: {
+    width: 25,
+    height: 25
   }
 })

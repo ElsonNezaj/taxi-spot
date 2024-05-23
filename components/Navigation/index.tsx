@@ -11,7 +11,7 @@ export default function AppNavigation(): ReactElement {
       <Drawer.Navigator
         initialRouteName="Home"
         screenOptions={{
-          header: ({ navigation }) => <Header />,
+          header: ({ navigation }) => <Header navigation={navigation} />,
         }}
       >
         <Drawer.Screen name="Home" component={Content} />
