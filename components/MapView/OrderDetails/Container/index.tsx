@@ -1,5 +1,5 @@
-import React, { ReactElement, useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import React, { ReactElement, useEffect, useRef, useState } from "react";
+import { Animated, StyleSheet, View } from "react-native";
 import { useAppSelector } from "../../../../redux/hooks";
 import { useDispatch } from "react-redux";
 import { handleCurrentView } from "../../../../redux/app/appSlice";
@@ -23,6 +23,7 @@ export default function OrderDetails(): ReactElement {
 
   const [detailsPayload, setDetailsPayload] = useState<any>(undefined)
   const [detailsView, setDetailsView] = useState<string>("update-location")
+  const translateY = useRef(new Animated.Value(300)).current;
 
   const handleBack = (backValue: string) => {
     setDetailsView(backValue)
@@ -63,14 +64,23 @@ export default function OrderDetails(): ReactElement {
   }
 
   useEffect(() => {
+    console.log('hideOrderDetails:', hideOrderDetails);
+    Animated.timing(translateY, {
+      toValue: hideOrderDetails ? 0 : 300,
+      duration: 100,
+      useNativeDriver: true
+    }).start();
+  }, [hideOrderDetails]);
+
+  useEffect(() => {
     setDetailsView('update-location')
   }, [destination, userLocation])
 
   return (
     <>
-      {hideOrderDetails &&
+      {
         currentView === "routing" &&
-        <View style={styles.detailsContainer}>
+        <Animated.View style={[styles.detailsContainer, { transform: [{ translateY }] }]}>
           {
             detailsView === "update-location" ?
               <LocationReviewUpdate
@@ -91,7 +101,7 @@ export default function OrderDetails(): ReactElement {
                   handleBack={handleBack}
                 />
           }
-        </View>
+        </Animated.View>
       }
     </>
   )
@@ -103,10 +113,10 @@ const styles = StyleSheet.create({
     width: "100%",
     position: "absolute",
     backgroundColor: '#8478A3',
-    bottom: 0,
     borderTopStartRadius: 50,
     borderTopEndRadius: 50,
     elevation: 5,
-    zIndex: 0
+    zIndex: 0,
+    bottom: 0,
   }
 })
