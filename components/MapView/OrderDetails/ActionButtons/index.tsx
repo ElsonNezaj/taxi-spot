@@ -18,14 +18,11 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 10,
-    paddingLeft: 5,
-    paddingRight: 5
   },
   cancelButton: {
     height: 40,
     justifyContent: "center",
-    backgroundColor: "red",
+    backgroundColor: "#494454",
     width: "25%",
     alignItems: "center",
     borderRadius: 5,

@@ -10,7 +10,6 @@ import {
   setDestination,
   setUserLocation
 } from "../../../../redux/places/placesSlice";
-import MainInfo from "../MainInfo";
 import CarSelection from "../CarSelection";
 import { ExtraDetails } from "../ExtraDetails";
 import LocationReviewUpdate from "../../../Shared/LocationReviewUpdate";
@@ -73,23 +72,23 @@ export default function OrderDetails(): ReactElement {
         <View style={styles.detailsContainer}>
           {
             detailsView === "update-location" ?
-              <LocationReviewUpdate />
+              <LocationReviewUpdate
+                handleCancel={handleCancel}
+                handleProceed={handleProceedInfo}
+              />
               :
-              detailsView === "main-info" ?
-                <MainInfo handleCancel={handleCancel} handleProceed={handleProceedInfo} />
-                :
-                detailsView === "car-selection" ?
-                  <CarSelection
-                    handleCancel={handleCancel}
-                    handleProceed={handleCarSelectionInfo}
-                    handleBack={handleBack}
-                  />
-                  : detailsView === "extra-details" &&
-                  <ExtraDetails
-                    handleCancel={handleCancel}
-                    handleProceed={handleExtraProceed}
-                    handleBack={handleBack}
-                  />
+              detailsView === "car-selection" ?
+                <CarSelection
+                  handleCancel={handleCancel}
+                  handleProceed={handleCarSelectionInfo}
+                  handleBack={handleBack}
+                />
+                : detailsView === "extra-details" &&
+                <ExtraDetails
+                  handleCancel={handleCancel}
+                  handleProceed={handleExtraProceed}
+                  handleBack={handleBack}
+                />
           }
         </View>
       }

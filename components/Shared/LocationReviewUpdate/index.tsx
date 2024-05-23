@@ -3,14 +3,29 @@ import { StyleSheet, View, Text, TouchableHighlight, Image } from "react-native"
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { enableEditLocation } from "../../../redux/app/appSlice";
 import ActionButtons from "../../MapView/OrderDetails/ActionButtons";
+import { calculateTotal } from "../../../redux/services";
 
-export default function LocationReviewUpdate(): ReactElement {
+interface IProps {
+  handleCancel: any,
+  handleProceed: (distance: number, duration: number, total: number) => void
+}
+
+export default function LocationReviewUpdate({ handleCancel, handleProceed }: IProps): ReactElement {
   const dispatch = useAppDispatch();
   const userData = useAppSelector(state => state.places.userData)
   const destinationData = useAppSelector(state => state.places.destinationData)
+  const directionsData = useAppSelector(state => state.places.directionsData)
 
   const handleEdit = (caller: string) => {
     dispatch(enableEditLocation(caller))
+  }
+
+  const handleInfoProceed = () => {
+    handleProceed(
+      Number(directionsData?.distance.toFixed(2)),
+      Math.ceil(directionsData?.duration),
+      calculateTotal(directionsData?.distance, Math.ceil(directionsData?.duration))
+    )
   }
 
   return <View style={styles.container}>
@@ -42,7 +57,23 @@ export default function LocationReviewUpdate(): ReactElement {
         </View>
       </View>
     </View>
-    <ActionButtons handleCancel={() => { }} handleProceed={() => { }} />
+    <View style={styles.tripInfoContainer}>
+      <Text style={styles.travelLabel}>
+        Distanca : &nbsp;
+        <Text style={styles.value}>{directionsData?.distance.toFixed(2)} km</Text>
+      </Text>
+      <Text style={styles.travelLabel}>
+        Kohezgjatja : &nbsp;
+        <Text style={styles.value}>~{Math.ceil(directionsData?.duration)} min.</Text>
+      </Text>
+    </View>
+    <View style={styles.totalRow}>
+      <Text style={styles.travelLabelRow}>
+        Total : &nbsp;
+      </Text>
+      <Text style={styles.valueRow}>{calculateTotal(directionsData?.distance, Math.ceil(directionsData?.duration))} LEK</Text>
+    </View>
+    <ActionButtons handleCancel={handleCancel} handleProceed={handleInfoProceed} />
   </View>
 }
 
@@ -51,8 +82,6 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: 10,
-    paddingBottom: 10,
     gap: 20,
     height: "100%",
     padding: 10
@@ -63,7 +92,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "white",
     borderBottomWidth: 1,
     justifyContent: "center",
-    paddingBottom: 10
+    paddingBottom: 5
   },
   row: {
     flexDirection: 'row',
@@ -111,5 +140,34 @@ const styles = StyleSheet.create({
     marginLeft: 25,
     color: "#ccc",
     letterSpacing: 0.5
+  },
+  tripInfoContainer: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between"
+  },
+  travelLabel: {
+    fontSize: 14,
+    color: "white",
+    letterSpacing: 1
+  },
+  value: {
+    fontWeight: "bold",
+    fontSize: 15
+  },
+  totalRow: {
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-between"
+  },
+  travelLabelRow: {
+    fontSize: 14,
+    color: "white",
+    letterSpacing: 1,
+  },
+  valueRow: {
+    fontSize: 16,
+    color: "white",
+    fontWeight: "bold"
   }
 })

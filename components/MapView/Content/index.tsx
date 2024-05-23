@@ -72,7 +72,7 @@ export default function Content(): ReactElement {
         [userLocation, destination],
         {
           animated: true,
-          edgePadding: { top: 50, bottom: 200, left: 80, right: 80 }
+          edgePadding: { top: 100, bottom: 200, left: 80, right: 80 }
         }
       )
     }

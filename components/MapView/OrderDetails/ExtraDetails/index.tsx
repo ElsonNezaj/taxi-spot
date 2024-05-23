@@ -42,16 +42,19 @@ export function ExtraDetails({ handleCancel, handleProceed, handleBack }: IProps
         <TextInput
           onChangeText={(e) => setData({ ...data, ["name"]: e })}
           placeholder="Emer / Mbiemer"
+          placeholderTextColor="white"
           style={styles.input}
         />
         <TextInput
           onChangeText={(e) => setData({ ...data, ["phoneNumber"]: e })}
           placeholder="Numer Telefoni (06X XXX XXXX)" inputMode="numeric"
+          placeholderTextColor="white"
           style={styles.input}
         />
         <TextInput
           onChangeText={(e) => setData({ ...data, ["details"]: e })}
           placeholder="Detaje shtese rreth vendodhjes tuaj"
+          placeholderTextColor="white"
           style={styles.input}
         />
       </View>
@@ -63,12 +66,13 @@ export function ExtraDetails({ handleCancel, handleProceed, handleBack }: IProps
 const styles = StyleSheet.create({
   extraContainer: {
     height: "100%",
-    width: "100%"
+    width: "100%",
+    padding: 20
   },
   extraHeader: {
     flexDirection: "row",
     gap: 10,
-    alignItems: "center"
+    alignItems: "center",
   },
   backButton: {
     backgroundColor: "white",
@@ -84,17 +88,19 @@ const styles = StyleSheet.create({
   backText: {
     fontSize: 18,
     color: "grey",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   titleLabel: {
     fontSize: 16,
     fontWeight: "bold",
-    letterSpacing: 1
+    letterSpacing: 1,
+    color: "white"
   },
   extraContent: {
     marginTop: 20,
     gap: 10,
-    alignItems: "center"
+    alignItems: "center",
+    marginBottom: 20
   },
   input: {
     borderWidth: 1,
@@ -105,6 +111,7 @@ const styles = StyleSheet.create({
     width: "90%",
     borderRadius: 5,
     fontWeight: "bold",
-    letterSpacing: 1
+    letterSpacing: 1,
+    color: "white"
   }
 })

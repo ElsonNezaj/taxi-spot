@@ -20,7 +20,7 @@ export default function CarSelection({ handleCancel, handleProceed, handleBack }
     <View style={styles.selectionContainer}>
       <View style={styles.header}>
         <TouchableOpacity
-          onPress={() => handleBack("main-info")}
+          onPress={() => handleBack("update-location")}
           style={styles.backButton}
         >
           <Text style={styles.backText}>{"<"}</Text>
@@ -50,7 +50,8 @@ export default function CarSelection({ handleCancel, handleProceed, handleBack }
 const styles = StyleSheet.create({
   selectionContainer: {
     height: "100%",
-    width: "100%"
+    width: "100%",
+    padding: 20
   },
   header: {
     flexDirection: "row",
@@ -60,7 +61,8 @@ const styles = StyleSheet.create({
   headerLabel: {
     fontSize: 16,
     fontWeight: "bold",
-    letterSpacing: 1
+    letterSpacing: 1,
+    color: "white"
   },
   backButton: {
     width: 30,
@@ -77,6 +79,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     marginTop: 20,
+    marginBottom: 20,
     gap: 20
   },
   backText: {
@@ -88,8 +91,8 @@ const styles = StyleSheet.create({
     width: "33%",
     maxHeight: 110,
     alignItems: "center",
-    borderRadius: 15,
-    backgroundColor: "white",
+    borderRadius: 5,
+    backgroundColor: "#494454",
     elevation: 10,
     borderWidth: 2,
     borderColor: "transparent"
@@ -98,13 +101,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     position: "absolute",
-    top: "75%"
+    top: "75%",
+    color: "white"
   },
   selectedType: {
     borderWidth: 2,
-    borderColor: "#8478A3",
-    backgroundColor: "#8478A354",
+    borderColor: "white",
     elevation: 0,
+    backgroundColor: "#379bb0"
   },
   image: {
     width: "100%",
