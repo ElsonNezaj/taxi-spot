@@ -6,42 +6,43 @@
     "preview": {
       "android": {
         "buildType": "apk",
-        "image": "default"
+        "image": "ubuntu-22.04-android-ndk-r23b"
       },
       "ios": {
-        "image": "default"
+        "image": "macos-monterey-12.4-xcode-14.2"
       }
     },
     "preview2": {
       "android": {
         "gradleCommand": ":app:assembleRelease",
-        "image": "default"
+        "image": "ubuntu-22.04-android-ndk-r23b"
       },
       "ios": {
-        "image": "default"
+        "image": "macos-monterey-12.4-xcode-14.2"
       }
     },
     "preview3": {
       "developmentClient": true,
       "android": {
-        "image": "default"
+        "image": "ubuntu-22.04-android-ndk-r23b"
       },
       "ios": {
-        "image": "default"
+        "image": "macos-monterey-12.4-xcode-14.2"
       }
     },
     "production": {
       "android": {
         "buildType": "app-bundle",
-        "image": "default"
+        "image": "ubuntu-22.04-android-ndk-r23b"
       },
       "ios": {
         "simulator": false,
-        "image": "latest"
+        "image": "macos-monterey-12.4-xcode-14.2"
       }
     }
   },
   "submit": {
     "production": {}
-  }
+  },
+  "owner": "soninezaj"
 }
