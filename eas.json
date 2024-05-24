@@ -15,6 +15,15 @@
     },
     "preview3": {
       "developmentClient": true
+    },
+    "production": {
+      "android": {
+        "buildType": "app-bundle"
+      },
+      "ios": {
+        "simulator": false,
+        "image": "latest"
+      }
     }
   },
   "submit": {
