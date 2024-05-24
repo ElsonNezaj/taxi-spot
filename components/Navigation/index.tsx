@@ -7,6 +7,7 @@ import DrawerContent from "./DrawerContent";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { toggleOrderDetailsOnDrawer } from "../../redux/app/appSlice";
 import { useDrawerStatus } from '@react-navigation/drawer';
+import { DrawerContentComponentProps, DrawerNavigationHelpers } from "@react-navigation/drawer/lib/typescript/src/types";
 
 export default function AppNavigation(): ReactElement {
   const dispatch = useAppDispatch()
@@ -17,7 +18,7 @@ export default function AppNavigation(): ReactElement {
     <NavigationContainer>
       <Drawer.Navigator
         initialRouteName="Home"
-        drawerContent={({ navigation }) => <DrawerContent navigation={navigation} />}
+        drawerContent={(props: DrawerContentComponentProps) => <DrawerContent navigation={props} />}
         backBehavior="history"
         screenOptions={{
           drawerPosition: "right",

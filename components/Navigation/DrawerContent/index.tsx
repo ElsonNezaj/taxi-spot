@@ -1,8 +1,8 @@
-import React, { ReactElement } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import React, { ReactNode } from "react";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import Constants from "expo-constants";
 
-export default function DrawerContent(navigation: any): ReactElement {
+export default function DrawerContent(props: any): ReactNode {
   return <View style={styles.drawerContent}>
     <View style={styles.headerView}>
       <Image source={require("../../../assets/images/profile.png")} style={styles.profileImage} />
@@ -10,6 +10,28 @@ export default function DrawerContent(navigation: any): ReactElement {
         <Text style={styles.usernameLabel}>Unregistered User</Text>
         <Text style={styles.subLabel}>Click here to login / create user</Text>
       </View>
+    </View>
+    <View style={styles.navigationContainer}>
+      <TouchableOpacity style={styles.navigation}>
+        <Image source={require("../../../assets/images/navigation/home.png")} style={styles.icon} tintColor="white" />
+        <Text style={styles.navigationLabel}>Kreu</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.navigation}>
+        <Image source={require("../../../assets/images/navigation/previous.png")} style={styles.icon} tintColor="white" />
+        <Text style={styles.navigationLabel}>Udhetimet</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.navigation}>
+        <Image source={require("../../../assets/images/navigation/address.png")} style={styles.icon} tintColor="white" />
+        <Text style={styles.navigationLabel}>Rezervimet</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.navigation}>
+        <Image source={require("../../../assets/images/navigation/favorite.png")} style={styles.icon} tintColor="white" />
+        <Text style={styles.navigationLabel}>Adreast e ruajtura</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.navigation}>
+        <Image source={require("../../../assets/images/navigation/coupon.png")} style={styles.icon} tintColor="white" />
+        <Text style={styles.navigationLabel}>Uljet / Ofertat</Text>
+      </TouchableOpacity>
     </View>
   </View>
 }
@@ -46,5 +68,29 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textDecorationStyle: "solid",
     textDecorationLine: "underline",
+  },
+  navigationContainer: {
+    padding: 10,
+    flex: 1,
+    gap: 20
+  },
+  navigation: {
+    height: 60,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 15,
+    backgroundColor: "#8478A370",
+    padding: 5,
+    borderRadius: 15,
+  },
+  icon: {
+    width: 25,
+    height: 25,
+    marginLeft: 10
+  },
+  navigationLabel: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
   }
 })
