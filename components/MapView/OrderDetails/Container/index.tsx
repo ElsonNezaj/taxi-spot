@@ -20,6 +20,7 @@ export default function OrderDetails(): ReactElement {
   const destination = useAppSelector(state => state.places.destination)
   const userLocation = useAppSelector(state => state.places.userPosition)
   const hideOrderDetails = useAppSelector(state => state.app.hideOrderOnDrawer)
+  const isEditLocationEnabled = useAppSelector(state => state.app.isEditLocationEnabled)
 
   const [detailsPayload, setDetailsPayload] = useState<any>(undefined)
   const [detailsView, setDetailsView] = useState<string>("update-location")
@@ -69,7 +70,7 @@ export default function OrderDetails(): ReactElement {
       duration: 300,
       useNativeDriver: true
     }).start();
-  }, [hideOrderDetails]);
+  }, [hideOrderDetails, isEditLocationEnabled]);
 
   useEffect(() => {
     setDetailsView('update-location')

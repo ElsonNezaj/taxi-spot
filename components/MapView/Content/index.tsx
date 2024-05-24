@@ -92,6 +92,7 @@ export default function Content(): ReactElement {
             rotateEnabled={false}
             provider={PROVIDER_GOOGLE}
             initialRegion={current}
+            userInterfaceStyle="dark"
             style={styles.map}
           >
             {

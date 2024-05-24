@@ -17,7 +17,7 @@ export default function AppNavigation(): ReactElement {
     <NavigationContainer>
       <Drawer.Navigator
         initialRouteName="Home"
-        drawerContent={(props: any) => <DrawerContent />}
+        drawerContent={({ navigation }) => <DrawerContent navigation={navigation} />}
         backBehavior="history"
         screenOptions={{
           drawerPosition: "right",
