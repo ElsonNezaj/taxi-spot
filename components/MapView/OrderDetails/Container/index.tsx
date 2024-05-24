@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useRef, useState } from "react";
-import { Animated, StyleSheet, View } from "react-native";
+import { Animated, StyleSheet } from "react-native";
 import { useAppSelector } from "../../../../redux/hooks";
 import { useDispatch } from "react-redux";
 import { handleCurrentView } from "../../../../redux/app/appSlice";
@@ -64,10 +64,9 @@ export default function OrderDetails(): ReactElement {
   }
 
   useEffect(() => {
-    console.log('hideOrderDetails:', hideOrderDetails);
     Animated.timing(translateY, {
       toValue: hideOrderDetails ? 0 : 300,
-      duration: 100,
+      duration: 300,
       useNativeDriver: true
     }).start();
   }, [hideOrderDetails]);
