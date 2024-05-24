@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "taxi",
-    "slug": "taxi",
+    "name": "amos",
+    "slug": "amos",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -19,9 +19,7 @@
         }
       ]
     ],
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -41,7 +39,7 @@
           "apiKey": "AIzaSyDeH1CPnvMotWBiC2NbQWiMWIp17U3WZkM"
         }
       },
-      "package": "com.soninezaj.taxi"
+      "package": "com.soninezaj.amos"
     },
     "web": {
       "favicon": "./assets/favicon.png"
