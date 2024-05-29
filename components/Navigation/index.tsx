@@ -4,9 +4,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import Content from "../MapView/Content";
 import Header from "../Header/Container";
 import DrawerContent from "./DrawerContent";
-import Trips from "../Trips/Content";
-import { Button, View } from "react-native";
 import SharedHeader from "./SharedHeader";
+import Trips from "../Trips/Content";
 
 export default function AppNavigation(): ReactElement {
   const Drawer = createDrawerNavigator();
@@ -18,26 +17,29 @@ export default function AppNavigation(): ReactElement {
         initialRouteName="Home"
         drawerContent={() => <DrawerContent />}
         backBehavior="initialRoute"
-        screenOptions={currentRoute === "Home" ? {
+      >
+        <Drawer.Screen name="Home" options={{
           drawerPosition: "right",
           header: ({ navigation, route }) => {
             setCurrentRoute(route.name)
             return <Header navigation={navigation} />
           },
-        }
-          : {}
-        }
-      >
-        <Drawer.Screen name="Home" component={Content} />
+        }}
+          component={Content}
+        />
+
         <Drawer.Screen
-          name="Trips"
+          name="Udhetimet"
           options={{
             drawerPosition: "right",
-            title: "Udhetimet",
-            header: ({ navigation }) => <SharedHeader />
+            header: ({ navigation, route }) => {
+              setCurrentRoute(route.name)
+              return <SharedHeader routeName={currentRoute} navigation={navigation} />
+            }
           }}
           component={Trips}
         />
+
       </Drawer.Navigator>
     </NavigationContainer>
   )

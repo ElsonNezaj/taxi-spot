@@ -5,7 +5,7 @@ import { useNavigation, NavigationProp, ParamListBase } from "@react-navigation/
 
 interface RootStackParaList {
   Home: undefined
-  Trips: undefined
+  Udhetimet: undefined
 }
 
 export default function DrawerContent(): ReactNode {
@@ -24,7 +24,7 @@ export default function DrawerContent(): ReactNode {
         <Image source={require("../../../assets/images/navigation/home.png")} style={styles.icon} tintColor="white" />
         <Text style={styles.navigationLabel}>Kreu</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate("Trips")} style={styles.navigation}>
+      <TouchableOpacity onPress={() => navigation.navigate("Udhetimet")} style={styles.navigation}>
         <Image source={require("../../../assets/images/navigation/previous.png")} style={styles.icon} tintColor="white" />
         <Text style={styles.navigationLabel}>Udhetimet</Text>
       </TouchableOpacity>

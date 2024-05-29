@@ -1,16 +1,50 @@
+import { DrawerNavigationProp } from "@react-navigation/drawer/lib/typescript/src/types";
+import { ParamListBase } from "@react-navigation/native";
 import React, { ReactElement } from "react";
-import { StyleSheet, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-export default function SharedHeader(): ReactElement {
+interface IProps {
+  routeName: string,
+  navigation: DrawerNavigationProp<ParamListBase, string, undefined>
+}
+
+export default function SharedHeader({ routeName, navigation }: IProps): ReactElement {
   return (
-    <View style={styles.sharedHeaderContainer}></View>
+    <View style={styles.sharedHeaderContainer}>
+      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+        <Image source={require("../../../assets/images/navigation/back.png")} style={styles.backIcon} />
+      </TouchableOpacity>
+      <Text style={styles.routeLabel}>{routeName}</Text>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   sharedHeaderContainer: {
-    paddingTop: 80,
+    paddingTop: 60,
     backgroundColor: "#8478A3",
-    flexDirection: "row"
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  backButton: {
+    width: 35,
+    height: 35,
+    backgroundColor: "#786d94",
+    margin: 5,
+    borderRadius: 75,
+    justifyContent: 'center',
+    alignItems: "center"
+  },
+  backIcon: {
+    height: "50%",
+    width: "50%",
+    tintColor: "white",
+  },
+  routeLabel: {
+    color: "white",
+    fontSize: 18,
+    textTransform: "uppercase",
+    fontWeight: "bold",
+    letterSpacing: 2
   }
 })
