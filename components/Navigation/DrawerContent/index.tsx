@@ -1,8 +1,16 @@
 import React, { ReactNode } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import Constants from "expo-constants";
+import { useNavigation, NavigationProp, ParamListBase } from "@react-navigation/native";
 
-export default function DrawerContent(props: any): ReactNode {
+interface RootStackParaList {
+  Home: undefined
+  Trips: undefined
+}
+
+export default function DrawerContent(): ReactNode {
+  const navigation = useNavigation<NavigationProp<RootStackParaList>>();
+
   return <View style={styles.drawerContent}>
     <View style={styles.headerView}>
       <Image source={require("../../../assets/images/profile.png")} style={styles.profileImage} />
@@ -12,11 +20,11 @@ export default function DrawerContent(props: any): ReactNode {
       </View>
     </View>
     <View style={styles.navigationContainer}>
-      <TouchableOpacity style={styles.navigation}>
+      <TouchableOpacity onPress={() => navigation.navigate("Home")} style={styles.navigation}>
         <Image source={require("../../../assets/images/navigation/home.png")} style={styles.icon} tintColor="white" />
         <Text style={styles.navigationLabel}>Kreu</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.navigation}>
+      <TouchableOpacity onPress={() => navigation.navigate("Trips")} style={styles.navigation}>
         <Image source={require("../../../assets/images/navigation/previous.png")} style={styles.icon} tintColor="white" />
         <Text style={styles.navigationLabel}>Udhetimet</Text>
       </TouchableOpacity>
