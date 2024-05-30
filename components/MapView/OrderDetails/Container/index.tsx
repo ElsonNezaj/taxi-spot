@@ -70,7 +70,13 @@ export default function OrderDetails(): ReactElement {
       ["userData"]: userData
     })
 
-    dispatch(updateLocalTrips(detailsPayload))
+    dispatch(updateLocalTrips({
+      ...detailsPayload,
+      destination: destination,
+      userData: userData,
+      userLocation: userLocation,
+      destinationData: destinationData
+    }))
     dispatch(handleCurrentView("default"))
     dispatch(handleCurrentState("destination"))
     dispatch(setDestination(undefined))
