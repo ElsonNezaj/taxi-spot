@@ -20,6 +20,8 @@ export default function OrderDetails(): ReactElement {
   const currentView = useAppSelector(state => state.app.currentView)
   const destination = useAppSelector(state => state.places.destination)
   const userLocation = useAppSelector(state => state.places.userPosition)
+  const destinationData = useAppSelector(state => state.places.destinationData)
+  const userData = useAppSelector(state => state.places.userData)
   const hideOrderDetails = useAppSelector(state => state.app.hideOrderOnDrawer)
   const isEditLocationEnabled = useAppSelector(state => state.app.isEditLocationEnabled)
 
@@ -61,7 +63,11 @@ export default function OrderDetails(): ReactElement {
   const handleExtraProceed = (details: any) => {
     setDetailsPayload({
       ...detailsPayload,
-      ["details"]: details
+      ["details"]: details,
+      ["destination"]: destination,
+      ["userLocation"]: userLocation,
+      ["destinationData"]: destinationData,
+      ["userData"]: userData
     })
 
     dispatch(updateLocalTrips(detailsPayload))

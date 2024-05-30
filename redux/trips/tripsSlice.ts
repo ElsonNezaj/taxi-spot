@@ -12,6 +12,8 @@ export interface Trips {
   rideType: RideType;
   destination: any;
   userLocation: any;
+  destinationData: any;
+  userData: any;
 }
 
 export interface TripDetails {
