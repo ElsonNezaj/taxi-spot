@@ -13,6 +13,7 @@ import {
 import CarSelection from "../CarSelection";
 import { ExtraDetails } from "../ExtraDetails";
 import LocationReviewUpdate from "../../../Shared/LocationReviewUpdate";
+import { updateLocalTrips } from "../../../../redux/trips/tripsSlice";
 
 export default function OrderDetails(): ReactElement {
   const dispatch = useDispatch()
@@ -62,6 +63,12 @@ export default function OrderDetails(): ReactElement {
       ...detailsPayload,
       ["details"]: details
     })
+
+    dispatch(updateLocalTrips(detailsPayload))
+    dispatch(handleCurrentView("default"))
+    dispatch(handleCurrentState("destination"))
+    dispatch(setDestination(undefined))
+    dispatch(setUserLocation(undefined))
   }
 
   useEffect(() => {
