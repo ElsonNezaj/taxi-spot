@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { ReactElement } from "react";
-import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function NoTrips(): ReactElement {
   const navigation = useNavigation()
