@@ -58,7 +58,7 @@ export function ExtraDetails({ handleCancel, handleProceed, handleBack }: IProps
           style={styles.input}
         />
       </View>
-      <ActionButtons handleCancel={() => handleCancel()} handleProceed={() => handleFinalProceed()} />
+      <ActionButtons caller="extra" handleCancel={() => handleCancel()} handleProceed={() => handleFinalProceed()} />
     </View>
   )
 }

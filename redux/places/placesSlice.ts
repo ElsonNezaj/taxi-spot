@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Place } from "react-native-google-places-autocomplete";
 
 interface PlacesState {
   isConfirmLocationVisible: boolean;

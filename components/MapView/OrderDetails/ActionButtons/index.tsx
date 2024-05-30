@@ -4,12 +4,17 @@ import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 interface IProps {
   handleCancel: () => void,
   handleProceed: () => void
+  caller?: string
 }
 
-export default function ActionButtons({ handleCancel, handleProceed }: IProps): ReactElement {
+export default function ActionButtons({ handleCancel, handleProceed, caller }: IProps): ReactElement {
   return <View style={styles.actionContainer}>
-    <TouchableOpacity onPress={() => handleCancel()} style={styles.cancelButton}><Text style={styles.label}>Anullo</Text></TouchableOpacity>
-    <TouchableOpacity onPress={() => handleProceed()} style={styles.proceedButton}><Text style={styles.label}>Vazhdo</Text></TouchableOpacity>
+    <TouchableOpacity onPress={() => handleCancel()} style={styles.cancelButton}>
+      <Text style={styles.label}>Anullo</Text>
+    </TouchableOpacity>
+    <TouchableOpacity onPress={() => handleProceed()} style={styles.proceedButton}>
+      <Text style={styles.label}>{caller === "extra" ? "Perfundo" : "Vazhdo"}</Text>
+    </TouchableOpacity>
   </View>
 }
 
