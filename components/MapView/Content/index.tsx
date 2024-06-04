@@ -7,6 +7,10 @@ import * as Location from 'expo-location';
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { handleConfirmLocation, saveDirectionsData, setCurrentPosition, setUserLocation } from "../../../redux/places/placesSlice";
 import { API_KEY } from "../../../assets/key/Google_API/api";
+import EditLocation from "../../Shared/EditLocation";
+import ConfirmDialog from "../../Shared/ConfirmDialog";
+import BottomDrawer from "../BottomDrawer/DrawerContainer";
+import OrderDetails from "../OrderDetails/Container";
 
 export default function Content(): ReactElement {
   const dispatch = useAppDispatch();
@@ -143,6 +147,10 @@ export default function Content(): ReactElement {
           }
         </>
       }
+      <EditLocation />
+      <ConfirmDialog />
+      <BottomDrawer />
+      <OrderDetails />
     </>
   )
 }

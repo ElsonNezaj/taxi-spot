@@ -18,10 +18,7 @@ export default function App() {
       <Provider store={store}>
         <AppNavigation />
         <StatusBar backgroundColor='rgba(0, 0, 0, 0.5)' style='light' />
-        <EditLocation />
-        <ConfirmDialog />
-        <BottomDrawer />
-        <OrderDetails />
+
       </Provider>
     </View>
 
