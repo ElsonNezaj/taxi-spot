@@ -9,9 +9,9 @@ export default function TripsContent(): ReactElement {
       {
         localTrips.map((trip, index) => {
           return (
-            <>
+            <View key={index} >
               {trip.userData?.description &&
-                <View key={index} style={styles.singleTripContainer}>
+                <View style={styles.singleTripContainer}>
                   <View style={styles.headerContainer}>
                     <View style={styles.tripStatusContainer} />
                     <View style={styles.tripLabelContainer}>
@@ -22,7 +22,7 @@ export default function TripsContent(): ReactElement {
                   </View>
                 </View>
               }
-            </>
+            </View>
           )
         }
         )
