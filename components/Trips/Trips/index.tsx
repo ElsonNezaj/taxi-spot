@@ -13,6 +13,7 @@ export default function TripsContent(): ReactElement {
               {trip.userData?.description &&
                 <View key={index} style={styles.singleTripContainer}>
                   <View style={styles.headerContainer}>
+                    <View style={styles.tripStatusContainer} />
                     <View style={styles.tripLabelContainer}>
                       <Text numberOfLines={1} ellipsizeMode="tail" style={styles.tripLabel}>{trip.userData?.description}</Text>
                       <Text style={styles.specialChar}>{">"}</Text>
@@ -46,7 +47,11 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingBottom: 10,
     borderBottomWidth: 1,
-    borderBottomColor: "#fff"
+    borderBottomColor: "#fff",
+    flexDirection: "row",
+    alignItems: "center",
+    paddingLeft: 5,
+    gap: 10
   },
   tripLabelContainer: {
     flexDirection: "row",
@@ -56,10 +61,17 @@ const styles = StyleSheet.create({
   tripLabel: {
     width: "50%",
     color: "white",
-    fontSize: 15
+    fontSize: 15,
+    fontWeight: "bold"
   },
   specialChar: {
     color: "white",
     fontSize: 15
+  },
+  tripStatusContainer: {
+    width: 15,
+    height: 15,
+    backgroundColor: "orange",
+    borderRadius: 100
   }
 })
