@@ -10,8 +10,8 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
+  whitelist: ["places", "app"],
 };
-
 const reducer = combineReducers({
   places: placesReducer,
   app: appReducer,

@@ -6,11 +6,7 @@ import { Provider } from 'react-redux';
 import { store } from './redux/store';
 
 import { StatusBar } from 'expo-status-bar';
-import ConfirmDialog from './components/Shared/ConfirmDialog';
-import BottomDrawer from './components/MapView/BottomDrawer/DrawerContainer';
-import OrderDetails from './components/MapView/OrderDetails/Container';
 import AppNavigation from './components/Navigation';
-import EditLocation from './components/Shared/EditLocation';
 
 export default function App() {
   return (
@@ -18,10 +14,8 @@ export default function App() {
       <Provider store={store}>
         <AppNavigation />
         <StatusBar backgroundColor='rgba(0, 0, 0, 0.5)' style='light' />
-
       </Provider>
     </View>
-
   );
 }
 
