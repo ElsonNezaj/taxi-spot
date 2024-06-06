@@ -1,21 +1,24 @@
-import React from 'react';
+import React = require('react');
 import { View, StyleSheet } from 'react-native';
 import 'react-native-gesture-handler';
 
 import { Provider } from 'react-redux';
-import { store } from './redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './redux/store';
 
 import { StatusBar } from 'expo-status-bar';
 import AppNavigation from './components/Navigation';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Provider store={store}>
-        <AppNavigation />
-        <StatusBar backgroundColor='rgba(0, 0, 0, 0.5)' style='light' />
-      </Provider>
-    </View>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <View style={styles.container}>
+          <AppNavigation />
+          <StatusBar backgroundColor='rgba(0, 0, 0, 0.5)' style='light' />
+        </View>
+      </PersistGate>
+    </Provider>
   );
 }
 
@@ -44,5 +47,4 @@ const styles = StyleSheet.create({
     position: 'absolute',
     height: 60
   }
-
 });
