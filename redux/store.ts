@@ -22,6 +22,14 @@ const persistState = persistReducer(persistConfig, reducer);
 
 export const store = configureStore({
   reducer: persistState,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ["persist/PERSIST", "persist/REHYDRATE"],
+        ignoredActionPaths: ["register", "rehydrate"],
+        ignoredPaths: ["register", "rehydrate"],
+      },
+    }),
 });
 
 export const persistor = persistStore(store);

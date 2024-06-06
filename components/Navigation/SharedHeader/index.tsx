@@ -1,20 +1,20 @@
 import { DrawerNavigationProp } from "@react-navigation/drawer/lib/typescript/src/types";
-import { ParamListBase } from "@react-navigation/native";
+import { ParamListBase, useRoute } from "@react-navigation/native";
 import React, { ReactElement } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 interface IProps {
-  routeName: string,
   navigation: DrawerNavigationProp<ParamListBase, string, undefined>
 }
 
-export default function SharedHeader({ routeName, navigation }: IProps): ReactElement {
+export default function SharedHeader({ navigation }: IProps): ReactElement {
+  const route = useRoute().name
   return (
     <View style={styles.sharedHeaderContainer}>
       <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
         <Image source={require("../../../assets/images/navigation/back.png")} style={styles.backIcon} />
       </TouchableOpacity>
-      <Text style={styles.routeLabel}>{routeName}</Text>
+      <Text style={styles.routeLabel}>{route}</Text>
     </View>
   )
 }

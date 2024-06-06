@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement } from "react";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import Content from "../MapView/Content";
@@ -9,7 +9,6 @@ import Trips from "../Trips/Content";
 
 export default function AppNavigation(): ReactElement {
   const Drawer = createDrawerNavigator();
-  const [currentRoute, setCurrentRoute] = useState<string>("Home")
 
   return (
     <NavigationContainer>
@@ -20,8 +19,7 @@ export default function AppNavigation(): ReactElement {
       >
         <Drawer.Screen name="Home" options={{
           drawerPosition: "right",
-          header: ({ navigation, route }) => {
-            setCurrentRoute(route.name)
+          header: ({ navigation }) => {
             return <Header navigation={navigation} />
           },
         }}
@@ -32,9 +30,8 @@ export default function AppNavigation(): ReactElement {
           name="Udhetimet"
           options={{
             drawerPosition: "right",
-            header: ({ navigation, route }) => {
-              setCurrentRoute(route.name)
-              return <SharedHeader routeName={currentRoute} navigation={navigation} />
+            header: ({ navigation }) => {
+              return <SharedHeader navigation={navigation} />
             }
           }}
           component={Trips}

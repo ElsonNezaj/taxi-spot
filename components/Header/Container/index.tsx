@@ -5,6 +5,7 @@ import Constants from "expo-constants";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { toggleOrderDetailsOnDrawer } from "../../../redux/app/appSlice";
 import { useDrawerStatus } from '@react-navigation/drawer';
+import { useRoute } from "@react-navigation/native";
 
 
 interface IProps {
